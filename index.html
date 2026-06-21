@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>Thailand Recon &amp; Istanbul Stopover &middot; Sep 2026</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<style>
+:root{
+  --ink:#0d1a2d; --ink2:#15263f; --ink3:#1d3454;
+  --parch:#f6f1e6; --parch2:#efe7d5; --paper:#fffdf8;
+  --gold:#c9a24b; --gold-soft:#e7d3a1;
+  --ox:#8c2f1f; --ox-bg:#f7e4df;
+  --grn:#1f6b4a; --grn-bg:#e2efe7;
+  --amb:#9a6b12; --amb-bg:#f6ecd5;
+  --blu:#27537f; --blu-bg:#e1ebf4;
+  --mut:#5d6b7e; --line:#d8cdb4;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --body:"Charter","Bitstream Charter","Sitka Text",Cambria,Georgia,serif;
+  --ui:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--parch);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+a{color:var(--blu)}
+.topbar{display:none;position:sticky;top:0;z-index:40;background:var(--ink);color:var(--gold-soft);
+  border-bottom:2px solid var(--gold);flex-direction:column}
+.topbar .row1{display:flex;align-items:center;gap:12px;padding:8px 12px;min-height:56px}
+.topbar .ham{display:flex;align-items:center;gap:9px;font-family:var(--ui);font-size:15px;font-weight:700;
+  letter-spacing:.02em;background:rgba(201,162,75,.16);border:1.5px solid var(--gold);color:var(--gold-soft);
+  cursor:pointer;line-height:1;padding:11px 16px;border-radius:10px;min-height:46px;-webkit-tap-highlight-color:transparent}
+.topbar .ham .bars{font-size:20px;line-height:1}
+.topbar .ham:active{background:rgba(201,162,75,.3)}
+.topbar .tt{font-family:var(--serif);font-size:16px;font-weight:600;letter-spacing:.01em;color:#fff;flex:1;min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chipbar{display:flex;gap:8px;overflow-x:auto;padding:2px 12px 11px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.chipbar::-webkit-scrollbar{display:none}
+.chipbar a{flex:0 0 auto;font-family:var(--ui);font-size:13px;font-weight:600;color:var(--ink);
+  background:var(--gold-soft);border:1px solid var(--gold);border-radius:18px;padding:8px 14px;text-decoration:none;
+  white-space:nowrap;min-height:36px;display:flex;align-items:center;-webkit-tap-highlight-color:transparent}
+.chipbar a:active{background:var(--gold);color:#fff}
+.chipbar a.active{background:var(--ink);color:var(--gold-soft);border-color:var(--ink)}
+.navbd{display:none;position:fixed;inset:0;background:rgba(8,14,24,.5);z-index:30}
+body.navopen .navbd{display:block}
+.nav .navclose{display:none}
+.wrap{display:flex;max-width:1320px;margin:0 auto}
+.nav{width:286px;flex:0 0 286px;background:var(--ink);color:#dfe7f0;position:sticky;top:0;height:100vh;
+  overflow-y:auto;padding:22px 0 40px;border-right:3px solid var(--gold)}
+.nav .brand{padding:0 20px 14px}
+.nav .brand h1{font-family:var(--serif);font-size:20px;line-height:1.2;margin:0 0 4px;color:#fff}
+.nav .brand .sub{font-family:var(--ui);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-soft)}
+.nav .brand .ver{font-family:var(--ui);font-size:11px;color:var(--mut);margin-top:6px}
+.nav .search{padding:0 16px 14px}
+.nav .search input{width:100%;padding:9px 11px;border-radius:7px;border:1px solid var(--ink3);
+  background:var(--ink2);color:#eef3f8;font-family:var(--ui);font-size:13px}
+.nav .search input::placeholder{color:#7d8aaa}
+.nav .grp{font-family:var(--ui);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--gold);
+  padding:14px 20px 5px;font-weight:700}
+.nav a{display:flex;align-items:center;gap:10px;padding:7px 20px;color:#cdd7e3;text-decoration:none;
+  font-family:var(--ui);font-size:13.5px;border-left:3px solid transparent}
+.nav a:hover{background:var(--ink2);color:#fff}
+.nav a.active{background:var(--ink2);color:#fff;border-left-color:var(--gold)}
+.nav .navnum{font-family:var(--ui);font-size:10px;color:var(--ink);background:var(--gold-soft);
+  border-radius:4px;padding:1px 5px;min-width:22px;text-align:center;font-weight:700}
+.main{flex:1 1 auto;min-width:0}
+.hero{background:linear-gradient(135deg,var(--ink) 0%,var(--ink3) 100%);color:#fff;padding:38px 30px 32px;
+  border-bottom:3px solid var(--gold)}
+.hero h2{font-family:var(--serif);font-size:30px;margin:0 0 8px;line-height:1.15}
+.hero .meta{font-family:var(--ui);font-size:12.5px;color:var(--gold-soft);letter-spacing:.03em}
+.hero .tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+.hero .tag{font-family:var(--ui);font-size:11.5px;background:rgba(201,162,75,.18);border:1px solid var(--gold);
+  color:var(--gold-soft);padding:4px 10px;border-radius:20px}
+.col{max-width:980px;padding:8px 30px 60px}
+section{padding-top:30px;scroll-margin-top:64px}
+section h3{font-family:var(--serif);font-size:23px;color:var(--ink);margin:22px 0 4px;
+  border-bottom:2px solid var(--gold);padding-bottom:7px;display:flex;align-items:baseline;gap:11px}
+section h3 .n{font-family:var(--ui);font-size:13px;color:#fff;background:var(--gold);border-radius:6px;
+  padding:2px 9px;font-weight:700}
+section h4{font-family:var(--serif);font-size:18px;color:var(--ink2);margin:20px 0 6px}
+p{margin:9px 0}
+.lead{font-size:16px;color:var(--ink2)}
+.box{border-left:5px solid;border-radius:8px;padding:13px 16px;margin:14px 0;font-size:14.5px}
+.box .lbl{font-family:var(--ui);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  display:block;margin-bottom:5px}
+.box.danger{border-color:var(--ox);background:var(--ox-bg)} .box.danger .lbl{color:var(--ox)}
+.box.fav{border-color:var(--grn);background:var(--grn-bg)} .box.fav .lbl{color:var(--grn)}
+.box.caution{border-color:var(--amb);background:var(--amb-bg)} .box.caution .lbl{color:var(--amb)}
+.box.proc{border-color:var(--blu);background:var(--blu-bg)} .box.proc .lbl{color:var(--blu)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0;
+  box-shadow:0 1px 2px rgba(13,26,45,.05)}
+.card h4{margin-top:4px}
+.card .sup{font-family:var(--ui);font-size:12px;color:var(--mut)}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px;background:var(--paper);
+  border:1px solid var(--line);border-radius:8px;overflow:hidden}
+th{background:var(--ink);color:var(--gold-soft);font-family:var(--ui);font-size:11.5px;letter-spacing:.04em;
+  text-transform:uppercase;text-align:left;padding:9px 11px}
+td{padding:9px 11px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#fbf7ee}
+.tl{margin:14px 0;padding:0;list-style:none}
+.tl li{position:relative;padding:0 0 4px 26px;margin:0}
+.tl li::before{content:"";position:absolute;left:7px;top:9px;width:9px;height:9px;border-radius:50%;
+  background:var(--gold);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--gold)}
+.tl li::after{content:"";position:absolute;left:11px;top:16px;bottom:-6px;width:2px;background:var(--line)}
+.tl li:last-child::after{display:none}
+.tl .d{font-family:var(--ui);font-size:12px;font-weight:700;color:var(--ink2);letter-spacing:.02em}
+.tl .t{font-size:14px}
+.pill{display:inline-block;font-family:var(--ui);font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;
+  vertical-align:middle}
+.pill.g{background:var(--grn-bg);color:var(--grn);border:1px solid var(--grn)}
+.pill.a{background:var(--amb-bg);color:var(--amb);border:1px solid var(--amb)}
+.pill.r{background:var(--ox-bg);color:var(--ox);border:1px solid var(--ox)}
+.pill.b{background:var(--blu-bg);color:var(--blu);border:1px solid var(--blu)}
+.pill.gold{background:rgba(201,162,75,.18);color:#7a5e1d;border:1px solid var(--gold)}
+.kv{font-family:var(--ui);font-size:13px;margin:3px 0}
+.kv b{color:var(--ink2)}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:var(--parch2);
+  padding:1px 6px;border-radius:4px}
+details.acc{border:1px solid var(--line);border-radius:8px;margin:10px 0;background:var(--paper)}
+details.acc summary{font-family:var(--ui);font-size:13.5px;font-weight:600;padding:11px 14px;cursor:pointer;color:var(--ink2)}
+details.acc[open] summary{border-bottom:1px solid var(--line)}
+details.acc .bd{padding:6px 14px 14px}
+.footer{background:var(--ink);color:#aebccd;padding:22px 30px;font-family:var(--ui);font-size:12px;
+  border-top:3px solid var(--gold)}
+.footer b{color:var(--gold-soft)}
+.backtop{position:fixed;right:18px;bottom:18px;z-index:25;background:var(--ink);color:var(--gold-soft);
+  border:2px solid var(--gold);border-radius:50%;width:46px;height:46px;font-size:20px;cursor:pointer;display:none}
+.backtop.show{display:block}
+mark.sx{background:var(--gold);color:var(--ink);padding:0 2px;border-radius:3px}
+mark.sx.cur{background:var(--ox);color:#fff}
+.hud{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:50;background:var(--ink);
+  color:#fff;font-family:var(--ui);font-size:13px;border:1px solid var(--gold);border-radius:24px;
+  padding:7px 12px;display:none;gap:10px;align-items:center}
+.hud.show{display:flex}
+.hud button{background:none;border:none;color:var(--gold-soft);font-size:16px;cursor:pointer}
+@media (max-width:920px){
+  .topbar{display:flex}
+  .nav{position:fixed;top:0;left:0;transform:translateX(-100%);transition:transform .25s;z-index:35;
+    height:100vh;width:84vw;max-width:340px;flex-basis:84vw}
+  body.navopen .nav{transform:translateX(0)}
+  body.navopen{overflow:hidden}
+  .nav .navclose{display:flex;align-items:center;justify-content:center;position:absolute;top:14px;right:14px;
+    width:42px;height:42px;border-radius:10px;background:rgba(201,162,75,.16);border:1.5px solid var(--gold);
+    color:var(--gold-soft);font-size:24px;cursor:pointer;line-height:1;-webkit-tap-highlight-color:transparent}
+  .nav .brand{padding-right:64px}
+  .nav a{padding:13px 20px;font-size:15.5px}
+  .nav .grp{font-size:11.5px;padding:16px 20px 6px}
+  .nav .navnum{font-size:11px;padding:2px 6px;min-width:24px}
+  .nav .search input{padding:12px 13px;font-size:15px}
+  .wrap{display:block}
+  .hero{padding:24px 18px 20px}
+  .hero h2{font-size:24px}
+  .col{padding:8px 16px 60px}
+  section{scroll-margin-top:118px}
+  .tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;border-radius:8px;border:1px solid var(--line)}
+  .tscroll table{margin:0;border:0;min-width:480px}
+  th,td{padding:8px 9px}
+  td,th{overflow-wrap:anywhere}
+  .mono{word-break:break-all}
+}
+.partybanner{margin:18px 0 6px;border-radius:14px;overflow:hidden;border:2px solid var(--gold);
+  background:linear-gradient(135deg,var(--ox) 0%,#b14228 55%,var(--gold) 160%);color:#fff;
+  box-shadow:0 4px 14px rgba(13,26,45,.18)}
+.partybanner .inner{padding:22px 24px;text-align:center}
+.partybanner .kick{font-family:var(--ui);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-soft);font-weight:700;margin-bottom:6px}
+.partybanner h2{font-family:var(--serif);font-size:30px;line-height:1.1;margin:2px 0 8px;color:#fff}
+.partybanner .when{font-family:var(--ui);font-size:15px;font-weight:700;letter-spacing:.02em;color:#fff;margin:0}
+.partybanner .sub2{font-family:var(--ui);font-size:12.5px;color:var(--gold-soft);margin-top:8px}
+@media (max-width:920px){ .partybanner h2{font-size:23px} .partybanner .inner{padding:18px 16px} }
+.card .links,.acc .links,.placelinks{font-family:var(--ui);font-size:12px;margin:8px 0 2px;
+  display:flex;flex-direction:column;gap:3px}
+.card .links .addr,.acc .links .addr,.placelinks .addr{color:var(--mut)}
+.card .links .lnks a,.acc .links .lnks a,.placelinks .lnks a{font-weight:600;text-decoration:none;
+  border-bottom:1px solid var(--blu);padding-bottom:1px}
+.card .links .lnks a:active,.placelinks .lnks a:active{opacity:.6}
+.mapwrap{margin:16px 0 8px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--paper);box-shadow:0 1px 3px rgba(13,26,45,.08)}
+.mapwrap .maphd{font-family:var(--ui);font-size:12.5px;font-weight:700;color:var(--ink2);padding:10px 14px;border-bottom:1px solid var(--line);background:#fbf7ee;display:flex;align-items:center;gap:8px}
+.mapwrap .maphd .dot{width:13px;height:13px;border-radius:50%;background:var(--ox);border:2px solid #fff;box-shadow:0 0 0 1px var(--ox);flex:0 0 auto}
+.leafmap{width:100%;height:460px;background:#aadaff}
+@media (max-width:920px){ .leafmap{height:380px} }
+.redpin{background:transparent;border:0}
+.redpin svg{display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.4))}
+.leaflet-popup-content{font-family:var(--ui);font-size:13px;line-height:1.45;margin:10px 12px}
+.leaflet-popup-content b{font-family:var(--serif);font-size:14px;color:var(--ink)}
+.leaflet-popup-content .pm{color:var(--mut);font-size:12px;display:block;margin-top:2px}
+.leaflet-popup-content a{color:var(--blu);font-weight:600;text-decoration:none;border-bottom:1px solid var(--blu)}
+.maplegend{font-family:var(--ui);font-size:12px;color:var(--mut);padding:9px 14px;border-top:1px solid var(--line);background:#fbf7ee}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="row1">
+    <button class="ham" aria-label="Open menu" id="hamBtn"><span class="bars">&#9776;</span> Menu</button>
+    <span class="tt">Thailand &middot; Sep 2026</span>
+  </div>
+  <div class="chipbar" id="chipbar">
+    <a href="#snapshot">Snapshot</a>
+    <a href="#flights">Flights</a>
+    <a href="#stopover">Stopover</a>
+    <a href="#istanbul">Istanbul</a>
+    <a href="#eats">Eats</a>
+    <a href="#maps">Maps</a>
+    <a href="#bangkok">Bangkok</a>
+    <a href="#huahin">Hua Hin</a>
+    <a href="#hheats">HH Eats</a>
+    <a href="#hotels">Hotels</a>
+    <a href="#agents">Agents</a>
+    <a href="#buying">Buying</a>
+    <a href="#places">Places</a>
+    <a href="#contacts">Contacts</a>
+    <a href="#cards">Cards</a>
+    <a href="#checklist">Checklist</a>
+  </div>
+</div>
+<div class="navbd" id="navbd"></div>
+<div class="wrap">
+<aside class="nav" id="nav">
+  <button class="navclose" aria-label="Close menu" id="navClose">&times;</button>
+  <div class="brand">
+    <h1>Thailand Recon</h1>
+    <div class="sub">+ Istanbul Stopover &middot; Sep 2026</div>
+    <div class="ver">Version 2.4 &middot; June 21, 2026</div>
+  </div>
+  <div class="search"><input id="q" type="search" placeholder="Search this itinerary..." autocomplete="off"></div>
+  <div class="grp">Overview</div>
+  <a href="#snapshot"><span class="navnum">01</span> Trip Snapshot</a>
+  <a href="#flights"><span class="navnum">02</span> Flights &amp; Ticket</a>
+  <a href="#stopover"><span class="navnum">03</span> Istanbul Stopover</a>
+  <div class="grp">Day by Day</div>
+  <a href="#istanbul"><span class="navnum">04</span> Istanbul: 2 Days</a>
+  <a href="#eats"><span class="navnum">04b</span> Istanbul Eats</a>
+  <a href="#maps"><span class="navnum">04c</span> Maps (Pinned)</a>
+  <a href="#bangkok"><span class="navnum">05</span> Arrival &amp; Transfer</a>
+  <a href="#huahin"><span class="navnum">06</span> Hua Hin Recon</a>
+  <a href="#hheats"><span class="navnum">06b</span> Hua Hin Eats</a>
+  <div class="grp">Ground Game</div>
+  <a href="#hotels"><span class="navnum">07</span> Hua Hin Hotels</a>
+  <a href="#agents"><span class="navnum">08</span> Agents (Ranked)</a>
+  <a href="#buying"><span class="navnum">09</span> Buyer Playbook</a>
+  <a href="#places"><span class="navnum">10</span> Places Logged</a>
+  <div class="grp">Reference</div>
+  <a href="#contacts"><span class="navnum">11</span> Key Contacts</a>
+  <a href="#cards"><span class="navnum">12</span> Payment &amp; Cards</a>
+  <a href="#checklist"><span class="navnum">13</span> Pre-Flight Checklist</a>
+</aside>
+<div class="main">
+<div class="hero">
+  <h2>Bangkok &amp; Hua Hin Recon</h2>
+  <div class="meta">56th Birthday Trip &middot; Version 2.4 &middot; June 21, 2026 &middot; PNR UFVR6V</div>
+  <div class="tags">
+    <span class="tag">Sep 5 &ndash; Sep 20, 2026</span>
+    <span class="tag">Turkish Airlines</span>
+    <span class="tag">2 free nights Istanbul</span>
+    <span class="tag">Condo recon, Hua Hin</span>
+  </div>
+</div>
+<div class="col">
+<div class="partybanner"><div class="inner">
+  <div class="kick">&#127881; You're Invited &#127881;</div>
+  <h2>Birthday Party with Aphro 5++</h2>
+  <p class="when">Friday, September 11 &middot; Hua Hin, Thailand</p>
+  <div class="sub2">Mark's 56th &middot; time &amp; venue TBA</div>
+</div></div>
+<section id="snapshot">
+<h3><span class="n">01</span> Trip Snapshot</h3>
+<p class="lead">Two weeks built around a Hua Hin condo recon, with a fully-funded two-night Istanbul stopover bolted onto the front. Flights are booked and ticketed. The Istanbul hotel voucher is issued. What remains is the Thailand ground game.</p>
+<div class="box fav"><span class="lbl">Locked &amp; Confirmed</span>
+Flights ticketed (PNR <span class="mono">UFVR6V</span>, ticket <span class="mono">235-2524662404</span>). Istanbul stopover hotel voucher issued (Grand Yavuz Sultanahmet, 2 nights + breakfast, voucher <span class="mono">0008118233</span>).</div>
+<ul class="tl">
+  <li><span class="d">SAT SEP 5</span><div class="t">Depart Detroit (DTW) 20:50, Turkish Airlines TK206</div></li>
+  <li><span class="d">SUN SEP 6 &ndash; TUE SEP 8</span><div class="t">Istanbul. Arrive 14:00 Sep 6. <b>Two free nights</b> at Grand Yavuz, Sultanahmet. Depart IST 15:50 Sep 8. <span class="pill gold">Stopover</span></div></li>
+  <li><span class="d">WED SEP 9</span><div class="t">Arrive Bangkok (BKK) 05:10. <b>Direct private-car transfer to Hua Hin</b> (~3&ndash;3.5 hrs). Sleep/reset on arrival.</div></li>
+  <li><span class="d">THU SEP 10</span><div class="t">First full day in Hua Hin. Settle in, scout the central pocket on foot.</div></li>
+  <li><span class="d">FRI SEP 11</span><div class="t"><b>56th birthday in Hua Hin.</b> No agent viewings. <span class="pill gold">Birthday</span></div></li>
+  <li><span class="d">SEP 11 &ndash; 18</span><div class="t">Split-base recon: central Market Village/beach pocket + quiet south (Nong Kae). Agent viewings on weekdays.</div></li>
+  <li><span class="d">SAT SEP 19</span><div class="t">Return toward Bangkok. Buffer night near BKK airport.</div></li>
+  <li><span class="d">SUN SEP 20</span><div class="t">Depart BKK 06:40, arrive home DTW 18:45 same day.</div></li>
+</ul>
+</section>
+<section id="flights">
+<h3><span class="n">02</span> Flights &amp; Ticket</h3>
+<div class="card">
+  <div class="sup">OUTBOUND &middot; Economy V</div>
+  <h4>Detroit &rarr; Bangkok via Istanbul</h4>
+  <div class="tscroll">
+<table>
+    <tr><th>Seg</th><th>Flight</th><th>Route</th><th>Depart</th><th>Arrive</th></tr>
+    <tr><td>1</td><td>TK206</td><td>DTW &rarr; IST</td><td>Sep 5, 20:50</td><td>Sep 6, 14:00</td></tr>
+    <tr><td colspan="5" style="background:var(--gold-soft);color:var(--ink);font-family:var(--ui);font-size:12px;font-weight:600">Stopover in Istanbul &middot; 49h 50m &middot; 2 free hotel nights</td></tr>
+    <tr><td>2</td><td>TK58</td><td>IST &rarr; BKK</td><td>Sep 8, 15:50</td><td>Sep 9, 05:10</td></tr>
+  </table>
+</div>
+</div>
+<div class="card">
+  <div class="sup">RETURN &middot; Economy E (Semi-Flexible)</div>
+  <h4>Bangkok &rarr; Detroit via Istanbul</h4>
+  <div class="tscroll">
+<table>
+    <tr><th>Seg</th><th>Flight</th><th>Route</th><th>Depart</th><th>Arrive</th></tr>
+    <tr><td>1</td><td>TK59</td><td>BKK &rarr; IST</td><td>Sep 20, 06:40</td><td>Sep 20, 12:40</td></tr>
+    <tr><td>2</td><td>TK205</td><td>IST &rarr; DTW</td><td>Sep 20, 14:55</td><td>Sep 20, 18:45</td></tr>
+  </table>
+</div>
+</div>
+<p class="kv"><b>Aircraft:</b> Boeing 787-9 (DTW/IST legs), Airbus A330-300 (IST/BKK legs). All wide-body.</p>
+<p class="kv"><b>Baggage:</b> 2 &times; 23 kg checked + 1 &times; 8 kg cabin, each direction.</p>
+<p class="kv"><b>Total paid:</b> USD 1,641.73 (base 774 + fuel surcharge 720 + taxes/fees 147.73). Charged to Turkish Visa ending 969.</p>
+<div class="box danger"><span class="lbl">Must Use Segments In Order</span>
+The ticket states twice that flights must be flown <b>in sequence</b>. Skip any segment and the remainder, including the return, auto-cancels. Do not book any throwaway/creative Thai routing that conflicts. Fly every leg in order.</div>
+<div class="box caution"><span class="lbl">Change / Cancel Penalties</span>
+Outbound (V): change USD 180, no-show USD 720, refund not allowed. Return (E): change USD 150, no-show USD 600, cancel USD 300. Most-restrictive rule governs the whole ticket. (24-hour free-cancel window already used for the card rebook.) Confidence: high (from ticket).</div>
+</section>
+<section id="stopover">
+<h3><span class="n">03</span> Istanbul Stopover Program</h3>
+<p>The two free Istanbul nights are a real, ticketed benefit, not a hope. Voucher is already issued and cross-checks clean against the ticket.</p>
+<div class="card">
+  <h4>Grand Yavuz Sultanahmet <span class="pill g">Voucher issued</span></h4>
+  <p class="kv"><b>Voucher / Issue No:</b> <span class="mono">0008118233</span> (PNR UFVR6V)</p>
+  <p class="kv"><b>Room:</b> Single, 2 nights, breakfast x2</p>
+  <p class="kv"><b>Check-in:</b> Sep 6, 17:00 &nbsp;&middot;&nbsp; <b>Check-out:</b> Sep 8, 11:50</p>
+  <p class="kv"><b>Address:</b> N:51 Sultanahmet, Piyer Loti Cd., Istanbul 34126</p>
+  <p class="kv"><b>Hotel direct:</b> 0212 517 1712 &middot; fom@grandyavuzhotel.com</p>
+  <p class="links"><span class="addr">N:51 Sultanahmet, Piyer Loti Cd., 34126 Fatih/&#304;stanbul</span><span class="lnks"><a href="https://www.grandyavuzhotel.com/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?ll=41.0057,28.9772&q=Grand%20Yavuz%20Hotel%20Sultanahmet" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div>
+<div class="box caution"><span class="lbl">Arrival vs Check-In Gap</span>
+Flight lands IST 14:00; hotel check-in is 17:00. After immigration + ~60 min transfer you may reach Sultanahmet before the room is ready. Plan first afternoon as <b>drop bags and walk</b>, not nap-first. The hotel holds luggage.</div>
+<div class="box proc"><span class="lbl">Why This Hotel Won</span>
+It is the only voucher option <b>inside</b> the historic core. Roughly a 10-minute walk to Hagia Sophia, the Blue Mosque, and the Grand Bazaar, with Topkapi, the Basilica Cistern, and the Hippodrome in the same radius. No transit needed on a jet-lagged turnaround. Trade-off: 4-star, rooms run small and a little dated. For a 2-night walk-everywhere stop, the right call.</div>
+<div class="box danger"><span class="lbl">Do Not Take Touristanbul</span>
+The free guided city tour cannot be combined with the stopover hotel on the same trip. You have the hotel. Decline Touristanbul so it does not cancel the hotel out.</div>
+</section>
+<section id="istanbul">
+<h3><span class="n">04</span> Istanbul: 2-Day Walking Plan</h3>
+<p>Everything below is on foot from Grand Yavuz. Sultanahmet is compact; you will not need a taxi or tram for the headline sights.</p>
+<h4>Sun Sep 6 &middot; Arrival afternoon/evening</h4>
+<ul class="tl">
+  <li><span class="d">~16:00</span><div class="t">Reach Sultanahmet, drop bags at Grand Yavuz.</div></li>
+  <li><span class="d">Evening</span><div class="t">Easy first walk: Blue Mosque exterior, the Hippodrome, Sultanahmet Square. Dinner locally. Room ready by the time you are done.</div></li>
+</ul>
+<h4>Mon Sep 7 &middot; Full day (the big one)</h4>
+<ul class="tl">
+  <li><span class="d">08:30&ndash;09:00</span><div class="t"><b>Hagia Sophia at opening.</b> Go early; queues hit 1&ndash;2 hrs by mid-morning. You are 10 min away, so be first.</div></li>
+  <li><span class="d">Late morning</span><div class="t">Blue Mosque interior (check prayer-time closures), then Basilica Cistern.</div></li>
+  <li><span class="d">Midday</span><div class="t">Topkapi Palace. Allow 2&ndash;3 hrs if you go in.</div></li>
+  <li><span class="d">Afternoon</span><div class="t">Grand Bazaar (closes ~19:00, <b>closed Sundays</b> so Monday works). Spice Bazaar if energy holds.</div></li>
+  <li><span class="d">Evening</span><div class="t">Bosphorus-side dinner or a sunset view. Birthday-trip indulgence is warranted.</div></li>
+</ul>
+<h4>Tue Sep 8 &middot; Departure morning</h4>
+<ul class="tl">
+  <li><span class="d">Morning</span><div class="t">Anything missed, or a slow breakfast. Check out 11:50.</div></li>
+  <li><span class="d">~12:00</span><div class="t">Head to IST airport (allow generous time; transfer can run 60+ min). Flight TK58 departs 15:50.</div></li>
+</ul>
+<div class="box caution"><span class="lbl">Grand Bazaar Hours</span>Open Mon&ndash;Sat 08:30&ndash;19:00, closed Sunday. Plan it for Monday Sep 7. Confidence: high.</div>
+</section>
+<section id="eats">
+<h3><span class="n">04b</span> Istanbul Eats</h3>
+<p>All walkable from Grand Yavuz. A mix of cheap local spots and mid-range sit-downs, weighted toward places with deep review histories rather than thin 4.9s.</p>
+<div class="box caution"><span class="lbl">Review Caveat</span>Many Sultanahmet places hand out free baklava/tea then ask for a review on the spot, which inflates ratings. Picks below lean on high review <b>counts</b> and track record. Treat any single glowing 4.9 with a small sample skeptically. Confidence: moderate-high on the value picks, lower on the rooftops.</div>
+<div class="box proc"><span class="lbl">Michelin, Applied Honestly</span>
+Per your friend's tip, these picks are cross-checked against the <b>2026 MICHELIN Guide T&uuml;rkiye</b>. The catch: Istanbul's Michelin <b>stars</b> are all across the water in Beyo&#287;lu/&#350;i&#351;li (TURK Fatih Tutak, Neolokal, Araf), a 30&ndash;40 min taxi each way and booked weeks ahead &ndash; they fight your walk-everywhere plan (see the optional list below). What <b>is</b> walkable from Grand Yavuz is the value tier: two <b>Bib Gourmand</b> spots (Michelin's "great food, good value" mark, benchmarked around a 3-course meal at sensible prices) plus Deraliye, which carries a Michelin recommendation. Price key on every card: <b>$</b> cheap &middot; <b>$$</b> moderate &middot; <b>$$$</b> pricey &middot; <b>$$$$</b> splurge.</div>
+<h4>Michelin Bib Gourmand (walkable, great value)</h4>
+<div class="card">
+  <h4>Giritli <span class="pill g">Bib Gourmand &middot; $$$</span></h4>
+  <p class="sup">Ah&#305;rkap&#305; / Cankurtaran &middot; ~8&ndash;10 min walk &middot; Cretan-Aegean seafood mezze</p>
+  <p>The standout walkable Michelin pick: a 19th-century mansion in Ah&#305;rkap&#305; on the historic peninsula, serving a <b>fixed-price Cretan-Aegean set</b> &ndash; an extended parade of cold and hot mezze, olive-oil vegetable dishes, fish, plus raki, in a relaxed seaside-style courtyard. Bib Gourmand 2026 (good value <b>for what it is</b>, but it is a full set-menu feast, so this is your "special dinner" slot, not a cheap-eats night). Vegetarian-friendly. Reserve at least 48 hrs ahead for dinner. This is the single best Michelin add for your two nights.</p>
+  <p class="links"><span class="addr">Cankurtaran, Ke&ccedil;ehatun Sok. No:8, 34122 Fatih/&#304;stanbul</span><span class="lnks"><a href="https://www.giritlirestaurant.com/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?ll=41.0044,28.9826&q=Giritli%20Restaurant%20Istanbul" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div>
+<div class="card">
+  <h4>Pandeli <span class="pill g">Bib Gourmand &middot; $$ &middot; lunch only</span></h4>
+  <p class="sup">Inside the Spice Bazaar, Emin&ouml;n&uuml; &middot; on your Day 2 route &middot; historic Turkish</p>
+  <p>A Bib Gourmand classic <b>right on your Day 2 path</b>: it sits up a staircase inside the Spice Bazaar (Egyptian Bazaar), wrapped in iconic turquoise &#304;znik tiles, open since the 1950s. Honest, home-style Turkish cooking (the lamb dishes and sea bass in paper draw the praise) at fair prices &ndash; a genuine sit-down lunch for moderate money, not a tourist trap. <b>Lunch only</b> and closes with the bazaar (~19:00), and <b>closed Sundays</b>, so slot it into Monday Sep 7 when you hit the Spice Bazaar. Walk-ins work midweek; busy, so go early.</p>
+  <p class="links"><span class="addr">R&uuml;stem Pa&#351;a, M&#305;s&#305;r &Ccedil;ar&#351;&#305;s&#305; No:1, Emin&ouml;n&uuml;, 34116 Fatih/&#304;stanbul</span><span class="lnks"><a href="https://www.pandeli.com.tr/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?ll=41.0166,28.9706&q=Pandeli%20Istanbul" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div>
+<details class="acc"><summary>Optional: Michelin-starred restaurants (across the water, advance booking)</summary><div class="bd">
+<p>These are the real <b>stars</b>, but all are a taxi ride over the Galata side and need reservations weeks out. Only worth it if you want one destination fine-dining night and will cross town for it &ndash; otherwise skip and keep the two nights walkable.</p>
+<p><b>TURK Fatih Tutak</b> <span class="pill b">2 Stars &middot; $$$$</span> &ndash; &#350;i&#351;li/Bomonti. Turkey's only 2-star, modern Anatolian tasting menu, the marquee room. Book well ahead. <span class="placelinks" style="display:inline;font-size:11.5px"> &middot; <a href="https://maps.apple.com/?q=TURK%20Fatih%20Tutak%2C%20Istanbul" target="_blank" rel="noopener">Apple Maps</a></span></p>
+<p><b>Neolokal</b> <span class="pill b">1 Star + Green &middot; $$$$</span> &ndash; Karak&ouml;y/Beyo&#287;lu, in the SALT Galata building. Modern Anatolian, Bosphorus view, sustainability-driven, excellent Turkish wine list. <span class="placelinks" style="display:inline;font-size:11.5px"> &middot; <a href="https://maps.apple.com/?q=Neolokal%2C%20Istanbul" target="_blank" rel="noopener">Apple Maps</a></span></p>
+<p><b>Araf</b> <span class="pill b">1 Star &middot; $$$$</span> &ndash; new for 2026, a tiny open-fire counter restaurant, bold Turkish flavors. Very limited seats. <span class="placelinks" style="display:inline;font-size:11.5px"> &middot; <a href="https://maps.apple.com/?q=Araf%20Restaurant%2C%20Istanbul" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div></details>
+<h4>Breakfast / all-day</h4>
+<div class="card">
+  <h4>Turgut Kebab <span class="pill g">4.8 &middot; 26k+ &middot; $</span></h4>
+  <p class="sup">Akb&#305;y&#305;k Cd. &middot; ~5 min from hotel &middot; open 24h</p>
+  <p>Turkish breakfast and menemen, rooftop Blue Mosque view. The enormous review base makes the 4.8 durable, not a fluke. Cheap. Good first-morning option.</p>
+  <p class="links"><span class="addr">Sultan Ahmet, Akb&#305;y&#305;k Cd. No:64, 34122 Fatih/&#304;stanbul</span><span class="lnks"><a href="https://www.turgutkebap.com/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?ll=41.004723,28.979098&q=Turgut%20Kebab%20Sultanahmet" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div>
+<h4>Cheap &amp; local (the anti-tourist-trap picks)</h4>
+<div class="card">
+  <h4>Ziya Baba T&uuml;rk Mutfa&#287;&#305; <span class="pill g">4.8 &middot; 3k+ &middot; $</span></h4>
+  <p class="sup">K&uuml;&ccedil;&uuml;k Ayasofya &middot; the value anchor</p>
+  <p>Repeatedly flagged by reviewers as <b>not</b> a tourist trap: honest, clear pricing, home-style cooking. Adana d&uuml;r&uuml;m + lentil soup runs ~740&ndash;830 TL for a full meal (about $19). A short walk southwest of the monuments.</p>
+  <p class="links"><span class="addr">K&uuml;&ccedil;&uuml;k Ayasofya, Kad&#305;rga Liman&#305; Cd. No:136, 34122 Fatih/&#304;stanbul</span><span class="lnks"><a href="https://maps.apple.com/?ll=41.0036929,28.9719096&q=Ziya%20Baba%20Turk%20Mutfagi" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div>
+<div class="card">
+  <h4>Old Sultanahmet Cuisine <span class="pill g">4.8 &middot; 2k+ &middot; $</span></h4>
+  <p class="sup">K&uuml;&ccedil;&uuml;k Ayasofya &middot; ~9 min from Grand Bazaar</p>
+  <p>Off the tourist drag. Good pide, solid veg options, welcoming service. Reviewers specifically note that venturing out of the main tourist zone here pays off.</p>
+  <p class="links"><span class="addr">K&uuml;&ccedil;&uuml;k Ayasofya, Kad&#305;rga Liman&#305; Cd. No:94 D:C, 34122 Fatih/&#304;stanbul</span><span class="lnks"><a href="https://instagram.com/oldsultanahmetrestaurant" target="_blank" rel="noopener">Instagram</a> &middot; <a href="https://maps.apple.com/?ll=41.0048466,28.9707646&q=Old%20Sultanahmet%20Cuisine%20Restaurant" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div>
+<h4>The iconic k&ouml;fte stop (manage expectations)</h4>
+<div class="card">
+  <h4>Tarihi Sultanahmet K&ouml;ftecisi Selim Usta <span class="pill a">4.1 &middot; 10k+ &middot; $$</span></h4>
+  <p class="sup">Divan Yolu &middot; on your walking spine</p>
+  <p>The historic, famous k&ouml;fte house, right between Hagia Sophia and the Grand Bazaar. Only 4.1, and reviews split between "simple classic excellence" and "overpriced tourist trap." Worth a quick iconic lunch <b>because it is on your exact route</b>, not as a destination. It is an institution, not a hidden gem.</p>
+  <p class="links"><span class="addr">Alemdar, Divan Yolu Cd. No:12, 34110 Fatih/&#304;stanbul</span><span class="lnks"><a href="https://sultanahmetkoftesi.com/en/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?ll=41.0080082,28.9769068&q=Tarihi%20Sultanahmet%20Koftecisi%20Selim%20Usta" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div>
+<h4>Mid-range dinners</h4>
+<div class="card">
+  <h4>Dubb Ethnic Restaurant <span class="pill g">4.9 &middot; 3.3k &middot; $$</span></h4>
+  <p class="sup">Cankurtaran &middot; near the hotel cluster</p>
+  <p>Reliably praised mezze, iskender, lamb soup; cozy terrace. One of the steadier mid-range rooms in the quarter.</p>
+  <p class="links"><span class="addr">Mimar Mehmeta&#287;a Cd., Cankurtaran, Amiral Taftil Sok. No:13, 34122 Fatih/&#304;stanbul</span><span class="lnks"><a href="https://www.dubbethnic.com/en/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?ll=41.004341,28.979997&q=Dubb%20Ethnic%20Restaurant" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div>
+<div class="card">
+  <h4>Sultan Palace Cafe <span class="pill g">4.8 &middot; 3.5k &middot; $$</span></h4>
+  <p class="sup">Alemdar &middot; near Hagia Sophia</p>
+  <p>Lamb chops, k&ouml;fte, calamari; warm terrace. Reviewers report returning multiple nights, a good sign.</p>
+  <p class="links"><span class="addr">Alemdar, Bi&ccedil;ki Yurdu Sk. No:1, 34122 Fatih/&#304;stanbul</span><span class="lnks"><a href="http://www.sultanpalace.tr/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?ll=41.0085053,28.9750403&q=Sultan%20Palace%20Cafe%20Restaurant" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div>
+<div class="card">
+  <h4>Deraliye Terrace <span class="pill g">4.8 &middot; Ottoman cuisine &middot; $$$</span> <span class="pill gold">Michelin-recommended</span></h4>
+  <p class="sup">Alemdar &middot; Blue Mosque view</p>
+  <p>Ottoman-palace-cuisine angle with a view, and reviewers note it is <b>not</b> overpriced for what it is. A good "special dinner" without the usual rooftop markup shock.</p>
+  <p class="links"><span class="addr">Alemdar, Ticarethane Sok. No:10 Teras Kat, 34122 Fatih/&#304;stanbul</span><span class="lnks"><a href="https://deraliyeterrace.com/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?ll=41.0088488,28.9761647&q=Deraliye%20Terrace" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div>
+<h4>Rooftop splurge (watch drink prices)</h4>
+<div class="card">
+  <h4>Queb Rooftop <span class="pill b">4.8 &middot; 3.8k &middot; $$$</span></h4>
+  <p class="sup">Byzantium Hotel &middot; 360&deg; view</p>
+  <p>Panoramic Hagia Sophia / Blue Mosque / Bosphorus view. Caveat from reviews: persistent upselling and a $21 gin &amp; tonic. Go for a drink and the view; keep an eye on the bill.</p>
+  <p class="links"><span class="addr">The Byzantium Hotel Teras, Cankurtaran, Akb&#305;y&#305;k Cd. No:29, 34122 Fatih/&#304;stanbul</span><span class="lnks"><a href="https://queblounge.com/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?ll=41.0055509,28.9803879&q=Queb%20Rooftop%20Restaurant" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div>
+<h4>Dessert / baklava</h4>
+<div class="card">
+  <h4>Haf&#305;z Mustafa 1864 <span class="pill g">4.7 &middot; 14k &middot; $$</span></h4>
+  <p class="sup">Divan Yolu branch &middot; on your walking route</p>
+  <p>Iconic baklava, kunafe, rice pudding. Pricey for a caf&eacute; but a genuine institution, not a trap. The Divan Yolu branch sits right between the monuments and the bazaar; the 1864 original (Hocapa&#351;a, 46k+ reviews) is a few minutes north if you want the flagship.</p>
+  <p class="links"><span class="addr">Binbirdirek, Divan Yolu Cd. No:14, 34110 Fatih/&#304;stanbul</span><span class="lnks"><a href="https://www.hafizmustafa.com/en" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?ll=41.0080549,28.9766287&q=Hafiz%20Mustafa%201864%20Divan%20Yolu" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div>
+<div class="box proc"><span class="lbl">Friend in Istanbul: Ahmet</span>
+You mentioned your friend Ahmet may live in Istanbul. Worth messaging him before the trip: he could join a dinner (Sep 6 or 7 evening are your open slots), or point you to neighborhood spots beyond the Sultanahmet tourist core, which is exactly where a local steer beats reviews. Confirm with him directly; this note is just a reminder to reach out.</div>
+</section>
+<section id="maps">
+<h3><span class="n">04c</span> Maps (Pinned)</h3>
+<p>Two interactive maps. Pins are tappable: each opens the place name, a one-line note, and a website link where available. Drag to pan, pinch or use +/&minus; to zoom.</p>
+<div class="mapwrap">
+  <div class="maphd"><span class="dot"></span> Istanbul &middot; Sultanahmet stopover (hotel, sights &amp; food, with day routes)</div>
+  <div id="map-ist" class="leafmap"></div>
+  <div class="maplegend"><b style="color:#8c2f1f">Red pins</b> = hotel + food. <b style="color:#27537f">Blue pins</b> = sights. Routes: <b style="color:#a6831f">gold = Day 1</b> (Sun Sep 6, arrival evening orientation: square &rarr; Blue Mosque exterior &rarr; dinner) &middot; <b style="color:#1f6f8b">teal = Day 2</b> (Mon Sep 7: Hagia Sophia &rarr; Cistern &rarr; Topkapi &rarr; lunch &rarr; Grand Bazaar &rarr; Spice Bazaar). All on foot from Grand Yavuz. Food pins now include the two walkable <b>Michelin Bib Gourmand</b> picks (Giritli, Pandeli).</div>
+</div>
+<div class="mapwrap">
+  <div class="maphd"><span class="dot"></span> Hua Hin &middot; recon bases &amp; anchors</div>
+  <div id="map-hh" class="leafmap"></div>
+  <div class="maplegend">Central cluster (G Hua Hin, Market Village, Kiang Haad, Baan Bayan, Veranda) vs the quieter south near Nong Kae/BluPort (Let's Sea, Marrakesh). Putahracsa sits just north; Aleenta is the far-south outlier in Pranburi. That gap is the ownership decision the trip is meant to settle. Red pins also include Baan Sechuan (condo recon target) and the Hua Hin Eats picks (Jek Pia, Chaolay, Baan Itsara, Koti, Praca, Coco51, Air Space, Fah Muey, Hin Lek Fai, Trattoria by Andreas, Hua Hin Vegan Cafe, Eighteen Below, Som's Table, Indian Hut, Thi Baan Bistro, LaLuz Rooftop, Aowtakiab Seafood, Cicada Market, Hua Hin Night Market).</div>
+</div>
+</section>
+<section id="bangkok">
+<h3><span class="n">05</span> Arrival &amp; Transfer to Hua Hin</h3>
+<p>You land BKK 05:10 Wed Sep 9 after roughly 30 hours of travel and a 12-hour time shift. Decision: go <b>directly to Hua Hin</b> rather than overnighting in Bangkok, and sleep/reset there.</p>
+<div class="box proc"><span class="lbl">Plan: Private Car, Direct</span>
+Pre-booked private car from BKK arrivals straight to the Hua Hin hotel. ~3 to 3.5 hrs depending on Bangkok traffic. Sleep in the back. A named driver waiting at arrivals with a sign beats negotiating the taxi rank at 5 a.m. half-asleep. Rough cost: THB 2,000&ndash;2,800 (~$55&ndash;80) for a sedan, more for a van. Booking options: pre-book online (Bangkok Taxi 24, 12Go, HuaHinCarTransfer) or arrange through your Hua Hin hotel. <b>Book in advance.</b></div>
+<div class="box caution"><span class="lbl">Why Not The Train On Arrival Day</span>
+The Hua Hin train does <b>not</b> run from BKK airport; it leaves from central Bangkok stations (Krung Thep Aphiwat / Hua Lamphong), so you would have to get into the city first, then ride ~4 hrs on a loose schedule. Scenic and cheap, and worth doing, but as a separate day-trip mid-stay, not as your jet-lagged arrival transfer. Confidence: high the car is the right arrival-day call.</div>
+<div class="box proc"><span class="lbl">Michelin In Bangkok (Only If You Add A City Night)</span>
+Bangkok is where Michelin coverage in Thailand is deep &ndash; street-food stars and Bib Gourmands by the dozen &ndash; but your routing never actually stops in the city (you transfer airport-to-Hua Hin on Sep 9 and fly out 06:40 on Sep 20). So treat this as optional: <b>only</b> if you bolt on a Bangkok overnight at either end is it worth chasing. If you do, the cheap-and-iconic picks are <b>Jay Fai</b> (the 1-star street stall, crab omelette; near-impossible reservation, hours-long queue), and Bib Gourmands like <b>Jeh O Chula</b> (late-night tom yum mama noodles), <b>Go-Ang Pratunam</b> (Hainanese chicken rice, the pink-shirt shop), and the Chinatown/Yaowarat stalls (Thai Bib benchmark is roughly THB 1,000 for three dishes &ndash; very cheap). Without a city night, skip it. Confidence: high on the picks, but they only matter if the plan changes.</div>
+<p class="kv"><b>Do on arrival:</b> grab a Thai eSIM (or pre-load before you fly), pull cash, then let the car do the work. First real day in Hua Hin is Sep 10; birthday Sep 11.</p>
+</section>
+<section id="huahin">
+<h3><span class="n">06</span> Hua Hin Recon Plan</h3>
+<p>This is the actual mission. Eleven nights in-country (Sep 9&ndash;20). The recon strategy is a <b>split base</b>: live the two candidate lifestyles rather than guess between them.</p>
+<div class="box fav"><span class="lbl">The Core Insight</span>
+The two ends of town are about 1.6 km apart and represent the real ownership decision: the <b>central Market Village + beach pocket</b> (walk to everything, busier, higher per-sqm) vs the <b>quiet south</b> in Nong Kae/Khao Takiab (calmer, drive to the mall, cheaper). Stay in each. Your hotel choice becomes part of the recon.</div>
+<h4>Birthday rule</h4>
+<div class="box danger"><span class="lbl">Sep 11 Is Blocked</span>
+No agent viewings on your birthday. Beach, a good dinner, no agenda. Schedule all viewings on the surrounding weekdays.</div>
+<h4>Agent rotation method</h4>
+<p>Buyer agents are free to you (seller/developer pays commission), so run <b>three or four in parallel</b> without owing anyone. Each shows their own inventory, so the overlaps and contradictions between them are the real data. Keep them unaware of each other so nobody soft-pedals a competitor's listing.</p>
+<h4>Condo recon targets</h4>
+<p>Specific buildings worth walking into or asking agents about by name. A watch-list to scout, not a hotel list.</p>
+<div class="card">
+  <h4>Baan Sechuan <span class="pill gold">Condo &middot; recon target</span></h4>
+  <p class="sup">Beachfront condominium &middot; central Hua Hin, opposite Bangkok Hospital Hua Hin</p>
+  <p>Central, beachfront building in the exact Market Village/beach pocket you are testing &ndash; reviewers describe walking straight off the property into the sea. Balinese-style units; resale listings show a 2BR/99sqm around <b>THB 9.9M</b> plus larger 155&ndash;196sqm units. On a per-sqm basis that 99sqm at the central band (THB 75&ndash;90k/sqm) implies ~THB 7.4&ndash;8.9M, so a 9.9M ask sits <b>above</b> the range &ndash; treat it as an opening price to negotiate or justify on the beachfront premium, not a settled value. Confidence: moderate (resale-aggregator data, single building).</p>
+  <div class="box danger" style="margin-top:10px"><span class="lbl">Before Any Money Moves</span>
+Ask the <b>foreign-freehold-quota</b> question for the specific unit (inside the 49% farang quota, or leasehold/Thai-company?). Verify the seller actually controls the unit. No deposit or reservation fee before in-person verification and a property lawyer. See the Buyer Playbook.</div>
+  <p class="links"><span class="addr">Beachfront, central Hua Hin (Hua Hin Beach Rd area), opposite Bangkok Hospital Hua Hin, Prachuap Khiri Khan 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5546276,99.961732&q=Baan%20Sechuan%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official building website; it appears only on property aggregators, so none is linked here on purpose.</p>
+</div>
+</section>
+<section id="hheats">
+<h3><span class="n">06b</span> Hua Hin Eats</h3>
+<p>Restaurants worth a detour, spread across the two recon bases. Seafood on the Naresdamri/Chomsin strip near the night market (central, walkable from G Hua Hin) plus a few south toward Nong Kae. Ratings are Google with review counts; lean on the deep-count places over thin high scores.</p>
+<div class="box caution"><span class="lbl">Review Inflation, Again</span>Same caveat as Istanbul: several Hua Hin spots run a "review-for-free-dessert" promotion (Baan Itsara openly does), which pads ratings. Weight the high review <b>counts</b> and your own read on the night. Confidence: moderate-high on the seafood institutions, lower on the resort/fine-dining rooms.</div>
+<div class="box caution"><span class="lbl">No Michelin Here &ndash; Google Volume Stands</span>
+On your friend's Michelin tip: it does <b>not</b> reach Hua Hin. The MICHELIN Guide Thailand covers Bangkok, Phuket, Phang-nga, Chiang Mai, Ayutthaya, Chon Buri, Isan, Ko Samui and Surat Thani &ndash; <b>Prachuap Khiri Khan / Hua Hin is not in the restaurant selection</b>, so there are no stars or Bib Gourmands to cross-check here. (Michelin's only Hua Hin presence is the hotel "Key" rating &ndash; Anantara, V Villas, Aleenta, Veranda &ndash; which is about lodging, not food. Any "Michelin-star restaurant in Hua Hin" claim online, e.g. for Jaras, is a misnomer.) So for Hua Hin the right signal stays what this section already uses: high Google review <b>volume</b> + a careful read, not star ratings. Price key below: <b>$</b> cheap &middot; <b>$$</b> moderate &middot; <b>$$$</b> pricey &middot; <b>$$$$</b> splurge.</div>
+<h4>Seafood institutions (central, near the night market)</h4>
+<div class="card">
+  <h4>Jek Pia <span class="pill g">4.2 &middot; 3,000+ &middot; $</span></h4>
+  <p class="sup">Phetkasem Rd, one block off the night market &middot; old-school Thai-Chinese</p>
+  <p>Decades-old local institution, cheap, fresh. Best sellers per reviews: charcoal seafood hot pot, scallops, crab fried rice, plus a popular breakfast congee. Odd hours: roughly 06:00&ndash;12:00 then 17:00&ndash;19:30, kitchen closes ~19:30. Caveats in reviews: brisk-to-curt service and flies. Go for the food, not the polish.</p>
+  <p class="links"><span class="addr">69/7 Phetkasem Rd, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5716363,99.9572542&q=Jek%20Pia%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 32 511 289.</p>
+</div>
+<div class="card">
+  <h4>Chaolay Seafood <span class="pill g">4.1 &middot; 3,200+ &middot; $$</span></h4>
+  <p class="sup">Naresdamri Rd &middot; beachfront, central</p>
+  <p>Big, busy, beachfront seafood hall right on the central strip. Fresh catch, fast service, sea breeze at night, prices reasonable for the location. Reviews praise the prawns and crab; main knock is occasionally indifferent service. Open ~10:00&ndash;21:30 daily. Reserve on weekends.</p>
+  <p class="links"><span class="addr">15 Soi Naresdamri, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5727529,99.959872&q=Chaolay%20Seafood%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 32 513 436.</p>
+</div>
+<div class="card">
+  <h4>Fah Muey <span class="pill g">4.4 &middot; 1,000+ &middot; $$</span></h4>
+  <p class="sup">Hidden alley off Naresdamri, on the water &middot; family-run local seafood</p>
+  <p>The locals' pick next door to Chaolay, but harder to find &ndash; tucked at the end of a vacant lot, you walk in through what looks like the kitchen. Family-run, granny greets you, packed with Thais (the good sign). Standouts: steamed sea bass with lime &amp; chili, gaeng som (sour curry) with sea bass, sweet calamari, cabbage in fish sauce. Long queues Sat&ndash;Sun, so arrive before 17:40. Rustic, charming, fresh. Service is hands-off (servers come once). Open ~10:00&ndash;21:00.</p>
+  <p class="links"><span class="addr">Soi 13 off Naresdamri Rd, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5730662,99.9600064&q=Fah%20Muey%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 82 599 5432.</p>
+</div>
+<div class="card">
+  <h4>Baan Itsara <span class="pill g">4.4 &middot; 3,500+ &middot; $$</span></h4>
+  <p class="sup">North end of the beach &middot; restored wooden house, sea view</p>
+  <p>Charming beachside seafood in a historic wooden building, slightly north of the main drag so a touch calmer. Signature: clams in sweet basil, crab omelette, grilled shrimp, crab fried rice. Best after 5pm for the sunset and breeze; ask for a table by the water. Note: runs the review-for-dessert promotion, so discount the rating a little.</p>
+  <p class="links"><span class="addr">Soi Hua Hin 7 (north beach), Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5823719,99.9556736&q=Baan%20Itsara%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 81 887 9229.</p>
+</div>
+<div class="card">
+  <h4>Aowtakiab Seafood <span class="pill g">4.5 &middot; 10,000+ &middot; $$</span></h4>
+  <p class="sup">Khao Takiab bay, south end &middot; huge beachside seafood institution</p>
+  <p>A massive, long-running beachside seafood hall down at Khao Takiab (Monkey Mountain) bay, with one of the deepest review counts in town. Fresh seafood, generous parking, pet-friendly, sea views. The setting and scale are the draw; a minority of reviews call some dishes average or pricey for the portion, so order the grilled prawns and crab and keep expectations on the seafood-hall (not fine-dining) level. Pairs naturally with a Khao Takiab temple/beach afternoon. Open ~10:30&ndash;21:00 (later weekends).</p>
+  <p class="links"><span class="addr">1/5 Soi Ao Hua Don 15, Nong Kae (Khao Takiab), Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5103142,99.9775074&q=Aowtakiab%20Seafood%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 93 914 9245.</p>
+</div>
+<h4>Local Thai (central)</h4>
+<div class="card">
+  <h4>Thi Baan Bistro <span class="pill g">4.8 &middot; 300+ &middot; $</span></h4>
+  <p class="sup">Phetkasem Rd, central &middot; high-value modern Thai cafe</p>
+  <p>A polished little Thai bistro that punches well above its price: reviewers single out the tom yum, spring rolls, garlic chicken rice, and pad see ew, with spice adjusted to taste, fast service, and a clean, fan-cooled room (bug spray and tissues on the table). Cheap &ndash; a full meal with drinks runs a few hundred baht. One weak note (a kids' nugget dish), so stick to the Thai plates. <b>Closed Sundays</b>; open ~10:00&ndash;22:00.</p>
+  <p class="links"><span class="addr">4/21 Phetkasem Rd, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5502324,99.9621834&q=Thi%20Baan%20Bistro%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 90 256 9898.</p>
+</div>
+<div class="card">
+  <h4>Koti Restaurant <span class="pill a">3.4 &middot; 1,800+ &middot; $$</span></h4>
+  <p class="sup">Dechanuchit Rd, by the night market &middot; long-running</p>
+  <p>Historic Thai-Chinese spot near the market, open midday to midnight. Loved by some for crab-with-noodles and peppercorn seafood; others find it middling and tourist-leaning for the price. Only 3.4, so manage expectations: a convenient lively option, not a destination. Listed here so you can judge it yourself if you are at the market.</p>
+  <p class="links"><span class="addr">61/1 Soi Dechanuchit (Soi Hua Hin 57), Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5714884,99.9567674&q=Koti%20Restaurant%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 95 860 5364.</p>
+</div>
+<h4>Indian</h4>
+<div class="card">
+  <h4>Indian Hut <span class="pill g">4.9 &middot; 1,100+ &middot; $$</span></h4>
+  <p class="sup">Soi Naresdamri, central &middot; North Indian, near the night market</p>
+  <p>The town's standout Indian, with a deep and consistently high review base. Tender tandoori chicken, chicken tikka masala, paneer kadai, dal makhani, fresh naan/roti, and well-regarded masala chai; warm, attentive service. Central, so easy to combine with a night-market evening. A reliable break from seafood and Thai. Open noon&ndash;23:00 daily.</p>
+  <p class="links"><span class="addr">130/5 Soi Naresdamri, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5707966,99.960033&q=Indian%20Hut%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 90 607 5003.</p>
+</div>
+<h4>Upscale / special dinner</h4>
+<div class="card">
+  <h4>Pra&ccedil;a <span class="pill g">4.7 &middot; 480+ &middot; $$$</span></h4>
+  <p class="sup">At The Standard, Naresdamri Rd &middot; Thai izakaya, beachfront</p>
+  <p>The standout of this set: Thai-fusion izakaya in a white traditional house inside The Standard, run by a former Iron Chef champion. Creative reworked Thai dishes, strong cocktails, beachfront setting, impeccable service in the reviews. The "special dinner" pick for the trip. Open noon&ndash;midnight. Reserve.</p>
+  <p class="links"><span class="addr">The Standard Hua Hin, 59 Soi Naresdamri, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5665701,99.9626862&q=Praca%20The%20Standard%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">Via The Standard; phone +66 32 535 999.</p>
+</div>
+<div class="card">
+  <h4>Som's Table <span class="pill a">4.1 &middot; 220+ &middot; $$$$</span></h4>
+  <p class="sup">Soi Ruamjai, far south (Nong Kae/toward Pranburi) &middot; fine dining, wine</p>
+  <p>Ambitious garden fine-dining room: seafood, wagyu, smoked-fish nigiri, pastas, and a serious wine list. Glowing reviews for the cooking and pairings, but a recurring counter-theme of <b>overpriced and small portions</b> (~THB 1,800/person without alcohol) and pushy upselling toward the set menu and wine flights. A special-occasion splurge if the south appeals; well off the central strip, so pair it with a southern hotel night. Confidence: moderate (polarized reviews).</p>
+  <p class="links"><span class="addr">19 Soi Ruamjai, Nong Kae, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.4577338,99.9789421&q=Som's%20Table%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 97 287 2442.</p>
+</div>
+<h4>Rooftop / sunset drinks</h4>
+<div class="card">
+  <h4>LaLuz Rooftop &amp; Bar <span class="pill g">4.5 &middot; small sample &middot; $$$</span></h4>
+  <p class="sup">Phetkasem Rd, central strip &middot; rooftop cocktails + small plates</p>
+  <p>A central rooftop bar on the main strip, same owner as Flavours. Tasty, reasonably-priced cocktails, strong small plates (cured tuna/salmon, red tuna tataki), chill atmosphere, occasional live music, and a club-style bar floor below when the roof closes in rain season. The view is pleasant rather than spectacular &ndash; come for the drinks and vibe, not a skyline. Newer, so the review count is still thin. Open ~17:30&ndash;midnight, <b>closed Mondays</b>.</p>
+  <p class="links"><span class="addr">250/191 Phetkasem Rd, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5561021,99.961121&q=LaLuz%20Rooftop%20Bar%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 62 925 2369.</p>
+</div>
+<div class="card">
+  <h4>The Sky Hua Hin <span class="pill g">4.5 &middot; 650+ &middot; $$$</span></h4>
+  <p class="sup">27th floor, Holiday Inn Vana Nava, south &middot; the only true high-rise sky bar</p>
+  <p>Hua Hin's only genuine high-altitude rooftop: 27th-floor panoramic views over the whole district, a glass-floor section, sunset-hour vibe, sushi and Western plates, and occasional high-tea events. The view is the product &ndash; reviews agree the food and cocktails don't quite match the price or the setting, so go for a sunset drink and a light bite rather than a serious dinner. Reserve a sunset slot. Open ~17:00&ndash;midnight.</p>
+  <p class="links"><span class="addr">Holiday Inn Vana Nava, 129/129 Phetkasem Rd, Nong Kae, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5320365,99.9637639&q=The%20Sky%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">Via Holiday Inn Vana Nava; phone +66 32 809 949.</p>
+</div>
+<h4>Night markets (street food)</h4>
+<div class="card">
+  <h4>Hua Hin Night Market <span class="pill g">4.2 &middot; 25,000+ &middot; $</span></h4>
+  <p class="sup">Dechanuchit Rd, central &middot; the classic street-food market</p>
+  <p>The town's central night market and the easy default for a cheap, varied dinner: grilled seafood cooked to order, pad thai, satay, mango sticky rice, plus shopping stalls. Lively, touristy, very central (walkable from the central hotels). Go early (opens ~18:00) for the best of the seafood stalls; parking is tough, so walk or get dropped. Open nightly ~18:00&ndash;24:00.</p>
+  <p class="links"><span class="addr">Dechanuchit Rd / Soi Hua Hin 72, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5711198,99.955467&q=Hua%20Hin%20Night%20Market" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; open-air market, no phone.</p>
+</div>
+<div class="card">
+  <h4>Cicada Market <span class="pill g">4.3 &middot; 18,000+ &middot; $</span></h4>
+  <p class="sup">Soi Hua Thanon 21, south (Nong Kae) &middot; arts + food night market, weekends only</p>
+  <p>More an open-air art village than a market: handmade crafts, an amphitheatre with live music and shows (~19:00 and 21:00), and a strong food section. Buy coupons to pay the food stalls (refundable until ~23:00). Family-friendly, creative, less frantic than the central night market, and right next to Tamarind Market and Trattoria by Andreas. <b>Fri&ndash;Sun only, ~16:00&ndash;23:00.</b></p>
+  <p class="links"><span class="addr">83/159 Soi Hua Thanon 21, Nong Kae, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5346594,99.9659588&q=Cicada%20Market%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 99 669 7161.</p>
+</div>
+<h4>Italian / Western</h4>
+<div class="card">
+  <h4>Trattoria by Andreas <span class="pill g">4.4 &middot; 1,100+ &middot; $$$</span></h4>
+  <p class="sup">Soi Mooban Nong Kae, south &middot; authentic Italian, near Cicada/Tamarind markets</p>
+  <p>The reference Italian in Hua Hin, run by Chef Andreas. Homemade pasta, wood-fired pizza, steak, seafood risotto, a wine list better than most in town, attentive service. Pricier than Bangkok for some dishes but consistently rated authentic. A good break from Thai food, and handy before the Cicada night market. Reserve on weekends.</p>
+  <p class="links"><span class="addr">4/91 Soi Mooban Nong Kae, Nong Kae, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5337517,99.9658262&q=Trattoria%20by%20Andreas%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 99 910 1018.</p>
+</div>
+<div class="card">
+  <h4>Hin Lek Fai Restaurant <span class="pill g">4.5 &middot; 150+ &middot; $$</span></h4>
+  <p class="sup">Soi 10 toward Hin Lek Fai hill, west of town &middot; Thai + Italian, fair-priced</p>
+  <p>A hidden-gem hillside spot run single-handedly by a hard-working host ("Nut"), doing both authentic Italian (gnocchi, pizza, fresh pasta, panna cotta) and Thai, at fair prices reviewers repeatedly call out. Schnitzel, bruschetta, creme brulee all praised. Small operation, so <b>reserve ahead</b>; bring mosquito repellent (garden setting). Closed Tuesdays; open ~14:30&ndash;21:00.</p>
+  <p class="links"><span class="addr">102/172 Soi 10, Hin Lek Fai, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.6111536,99.9365802&q=Hin%20Lek%20Fai%20Restaurant%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 62 293 9924.</p>
+</div>
+<h4>Vegetarian / dessert</h4>
+<div class="card">
+  <h4>Hua Hin Vegan Cafe &amp; Wine <span class="pill g">4.5 &middot; 800+ &middot; $$</span></h4>
+  <p class="sup">Soi 82, central-ish &middot; fully vegan, Western-feeling room</p>
+  <p>The nicest fully-vegan room in town: creative, varied menu (Thai dishes, pizza, jackfruit "barbecue," almond cake), happy to customize for strict diets (no garlic/onion). Beautiful decor, calm music, strong value (a full meal with drink around THB 445). Reviews are mostly raving; a minority find some dishes mediocre, so order the Thai-flavored plates and pizza over the Western mock-meat. Open 10:00&ndash;22:00 daily.</p>
+  <p class="links"><span class="addr">178/221 Soi 82, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5651478,99.959027&q=Hua%20Hin%20Vegan%20Cafe%20and%20Wine" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 92 536 6241.</p>
+</div>
+<div class="card">
+  <h4>Eighteen Below Ice Cream <span class="pill a">4.0 &middot; 230+ &middot; $</span></h4>
+  <p class="sup">Soi Naeb Kehardt, north-central &middot; home-crafted ice cream + affogato</p>
+  <p>Small home-crafted ice cream shop with premium ingredients (less fat/sugar), praised for the peanut brownie, affogato, and waffles. Tiny space that gets crowded; a few note the waffle isn't always fresh-made. A good cooling stop, not a meal. Closed Tuesdays; open ~11:00&ndash;17:00 (later weekends).</p>
+  <p class="links"><span class="addr">4/62 Soi Naeb Kehardt, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5821711,99.9554329&q=Eighteen%20Below%20Ice%20Cream%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 81 751 7057.</p>
+</div>
+<h4>Design-led (south, near Nong Kae)</h4>
+<div class="card">
+  <h4>Coco51 <span class="pill g">4.3 &middot; 880+ &middot; $$$</span></h4>
+  <p class="sup">Soi 51 / Damrong Rat &middot; beachfront Thai + Italian, live music</p>
+  <p>Relaxed beachfront room doing Thai seafood, steaks, and notably good Italian, with live music and sea views. Mid-to-high prices. Reviews split: most love the setting and food, a few flag slow or pushy service and weak cocktails. A solid long-dinner option between the two bases. Open ~12:30&ndash;22:00.</p>
+  <p class="links"><span class="addr">Soi Damrong Rat (Hua Hin Soi 51), Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5795597,99.9567767&q=Coco51%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 80 006 1944.</p>
+</div>
+<div class="card">
+  <h4>Air Space Hua Hin <span class="pill g">4.3 &middot; 2,500+ &middot; $$$</span></h4>
+  <p class="sup">Hua Dorn / Nong Kae area, south &middot; aviation-themed cafe + restaurant</p>
+  <p>Big, design-forward aviation-themed cafe-restaurant (a plane hangs from the ceiling), air-conditioned, popular for fusion Thai dishes and coffee. Good for a styled lunch when you are basing in the south near Let's Sea. Reviews: love the space and dinner dishes; breakfast and waits draw the most complaints. Open ~09:00&ndash;21:30.</p>
+  <p class="links"><span class="addr">12/399 Hua Dorn, Nong Kae, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://maps.apple.com/?ll=12.5152708,99.9763175&q=Air%20Space%20Hua%20Hin" target="_blank" rel="noopener">Apple Maps</a></span></p>
+  <p class="sup">No official website; phone +66 63 916 0999.</p>
+</div>
+</section>
+<section id="hotels">
+<h3><span class="n">07</span> Hua Hin Hotels (Recon Bases)</h3>
+<p>Two bases, two lifestyles. Book the central one for the walk-everywhere test and the southern one for the quiet test. All ratings are Google unless noted.</p>
+<div class="box caution"><span class="lbl">The Three-Way Tension</span>
+Adults-only + 5-min-to-mall + 5-min-to-beach do not all coexist in one property. The tightest mall+beach pocket hotels are not adults-only; the adults-only boutiques are not in that exact bullseye. For a recon trip, location intel beats ambiance. Suggested resolution below.</div>
+<h4>Central base &middot; Market Village + Beach pocket</h4>
+<div class="card">
+  <h4>G Hua Hin Resort <span class="pill g">4.6 &middot; 2,900+ reviews</span></h4>
+  <p class="sup">Top pick for the central leg. Highest-rated in the pocket by a wide margin.</p>
+  <p>Proper resort, large pool, walkable to both malls and the beach. The big review volume makes the 4.6 durable, not a fluke. 79 rooms, "Pier"-themed. Not adults-only.</p>
+  <p class="kv"><b>Phone:</b> +66 32 515 199 &middot; ghuahin.com</p>
+  <p class="links"><span class="addr">250, 201 Petchkasem Rd, Hua Hin, Prachuap Khiri Khan 77110, Thailand</span><span class="lnks"><a href="https://www.ghuahin.com/" target="_blank" rel="noopener">ghuahin.com</a> &middot; <a href="https://maps.apple.com/?q=G%20Hua%20Hin%20Resort%2C%20Hua%20Hin%2C%20Prachuap%20Khiri%20Khan%2C%20Thailand" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div>
+<details class="acc"><summary>Other central pocket options (5-min to mall + beach)</summary><div class="bd">
+<p><b>Hua Hin White Villa</b> (4.4, small sample) &ndash; literal bullseye, directly across from Market Village, ~3 min to beach. Dated and basic; a location you rent, not a hotel you enjoy. +66 81 198 7550. <span class="placelinks" style="display:inline;font-size:11.5px"> &middot; <a href="https://maps.apple.com/?q=Hua%20Hin%20White%20Villa%2C%20Hua%20Hin%2C%20Thailand" target="_blank" rel="noopener">Apple Maps</a></span></p>
+<p><b>Kiang Haad Beach</b> (4.1, 800+) &ndash; across from the mall, beach under 5 min. Recurring complaint: highway noise. Demand a rear-facing room. +66 32 521 222. <span class="placelinks" style="display:inline;font-size:11.5px"> &middot; <a href="https://www.kianghaadbeach.com/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?q=Kiang%20Haad%20Beach%20Resort%2C%20Hua%20Hin%2C%20Thailand" target="_blank" rel="noopener">Apple Maps</a></span></p>
+<p><b>Baan Bayan</b> (4.4, 440+) &ndash; colonial-style beachfront boutique, two pools on the sand, closest to the beach. Upkeep is uneven per reviews. +66 32 533 540. <span class="placelinks" style="display:inline;font-size:11.5px"> &middot; <a href="https://www.baanbayan.com/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?q=Baan%20Bayan%20Beach%20Hotel%2C%20Hua%20Hin%2C%20Thailand" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div></details>
+<h4>Southern base &middot; Nong Kae / Khao Takiab (quiet test)</h4>
+<div class="card">
+  <h4>Let's Sea Hua Hin Al Fresco <span class="pill b">Adults / 12+</span></h4>
+  <p class="sup">Best instrument for the quiet-south + adults-oriented test.</p>
+  <p>Design-forward, beachfront Nong Kae, signature pool-access rooms. 1,300+ TripAdvisor reviews skew positive on service/design. Note: it is technically adults and children 12+, not strictly adults-only. Caveat: the beach here is shallow and murky from wave action, with occasional jellyfish, so it is a pool-and-lounge property, not a swim-beach one.</p>
+  <p class="links"><span class="addr">83/188 Soi Hua Thanon 23, Nong Kae, Hua Hin 77110, Thailand</span><span class="lnks"><a href="https://www.letussea.com/" target="_blank" rel="noopener">letussea.com</a> &middot; <a href="https://maps.apple.com/?q=Let's%20Sea%20Hua%20Hin%20Al%20Fresco%20Resort%2C%20Nong%20Kae%2C%20Hua%20Hin%2C%20Thailand" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div>
+<details class="acc"><summary>Other adults-only / quiet options</summary><div class="bd">
+<p><b>Putahracsa Hua Hin</b> &ndash; adults-only boutique on Naeb Kaehat Rd, 1,800+ reviews. Note: it is ~25-min walk from the beach (not bullseye-central), and reviews are more mixed than the headline rating suggests. A quieter adults-only alternative to G Hua Hin's resort scale. <span class="placelinks" style="display:inline;font-size:11.5px"> &middot; <a href="https://www.putahracsa.com/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?q=Putahracsa%20Hua%20Hin%20Resort%2C%20Hua%20Hin%2C%20Thailand" target="_blank" rel="noopener">Apple Maps</a></span></p>
+<p><b>Aleenta (Pranburi)</b> &ndash; the Aleenta Wing is adults-only, beachfront plunge pools, but it is 30+ min south in Pranburi. A 2-night mid-trip escape, not a recon base. <span class="placelinks" style="display:inline;font-size:11.5px"> &middot; <a href="https://www.aleenta.com/huahin/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?q=Aleenta%20Resort%20Pranburi%2C%20Thailand" target="_blank" rel="noopener">Apple Maps</a></span></p>
+<p><b>Sky Villa (adults-only)</b> &ndash; cheap, central, 8-min walk to beach. No-frills base if you would rather spend on the hunt than the room. <span class="placelinks" style="display:inline;font-size:11.5px"> &middot; <a href="https://maps.apple.com/?q=Sky%20Villa%20Boutique%20Hotel%2C%20Hua%20Hin%2C%20Thailand" target="_blank" rel="noopener">Apple Maps</a></span></p>
+</div></details>
+<div class="box proc"><span class="lbl">Suggested Split</span>
+Central leg at <b>G Hua Hin Resort</b> (mall + beach recon, around the birthday). Southern leg at <b>Let's Sea</b> (adults-oriented, quiet-south test). Optional mid-trip 2-night escape at Aleenta if you want one. This single split answers the mall question, the beach question, the adults-only question, and the which-neighborhood-do-I-buy-in question at once.</div>
+<div class="box caution"><span class="lbl">Reference Only (Not Adults-Only)</span>
+<b>Veranda Lodge</b> (town-center beachfront, ~8.1/10) and <b>Marrakesh Hua Hin</b> (Moroccan-themed, Nong Kae, couples/kids-club) are logged but fail the adults-only filter. Keep as scenery references, not booking targets.<br><span class="placelinks" style="display:inline;font-size:11.5px"><b>Veranda Lodge:</b> <a href="https://www.verandalodge.com/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?q=Veranda%20Lodge%20Hua%20Hin%2C%20Thailand" target="_blank" rel="noopener">Apple Maps</a> &nbsp;|&nbsp; <b>Marrakesh:</b> <a href="https://marrakeshresortandspa.com/" target="_blank" rel="noopener">Website</a> &middot; <a href="https://maps.apple.com/?q=Marrakesh%20Hua%20Hin%20Resort%20and%20Spa%2C%20Thailand" target="_blank" rel="noopener">Apple Maps</a></span></div>
+</section>
+<section id="agents">
+<h3><span class="n">08</span> Buyer Agents, Ranked</h3>
+<div class="box caution"><span class="lbl">Confidence Note</span>
+Ranking is built on review <b>substance and signals</b> (independence, tenure, named-client testimonials, red flags), not clean numeric star averages, which the aggregators did not expose. Confidence: moderate on ordering. Verify each on Google Maps yourself before a viewing day, and read the 1- and 2-star reviews specifically; failure-mode reviews tell you how an agent behaves when a deal goes sideways.</div>
+<div class="tscroll">
+<table>
+  <tr><th>#</th><th>Agency</th><th>Read</th><th>Web</th></tr>
+  <tr><td>1</td><td><b>Location Real Estate</b><br>(Jon Martin)</td><td>Strongest signal. Independent since 2017, ex-international-law-firm. Specific praise for knowledge, honesty, no-pressure. Recon-friendly behavior in reviews.</td><td>locationrealestate.co.th</td></tr>
+  <tr><td>2</td><td><b>Executive Homes Hua Hin</b></td><td>Deep bench, ~9,500 FB following, named agents with detailed testimonials. Covers Cha-Am, Pranburi, Dolphin Bay for breadth.</td><td>executive-homes-huahin.com</td></tr>
+  <tr><td>3</td><td><b>Property Solutions</b><br>(Lee Phillips)</td><td>13+ yrs, multilingual (EN/TH/DE/FR), developer-neutral. Fewer independent testimonials found. Good second independent opinion.</td><td>propertysolutionshuahin.com</td></tr>
+  <tr><td>4</td><td><b>Siam Real Estate</b></td><td>Biggest inventory, most corporate. Best for breadth to pressure-test the boutiques. Less hand-holding.</td><td>siamrealestate.com</td></tr>
+  <tr><td>5</td><td>Hua Hin Property Agent</td><td>Family-run, claims 20+ yrs, light verifiable review trail. A maybe.</td><td>huahinpropertyagent.com</td></tr>
+  <tr><td>&ndash;</td><td><b>Star Property</b> <span class="pill r">Caution</span></td><td>Documented TripAdvisor dispute (rental, 2014): property differed from advertised, confirmed date-change reneged after client spent ~&euro;10k on flights, dismissive owner response. Drop from rotation unless personally vouched.</td><td>star-property-huahin.com</td></tr>
+  <tr><td>?</td><td><b>168 Billionaire</b> <span class="pill a">Unverified</span></td><td>Real, registered (reg. 0775565004474), young (~2022), small. Zero independent reviews. From a YouTube card. Costs nothing to add; message first, judge the response. Not primary.</td><td>168billionaire.property@gmail.com</td></tr>
+</table>
+</div>
+<div class="box proc"><span class="lbl">Recommended Rotation</span>
+Run three in parallel, unaware of each other: <b>Location Real Estate</b> (primary boutique candor), <b>Executive Homes</b> (breadth + local-area read), <b>Siam</b> (max inventory to test claims). Skip Star Property. Add Property Solutions as a 4th for a second independent opinion. Optionally ping 168 Billionaire by LINE/email and let the reply decide.</div>
+</section>
+<section id="buying">
+<h3><span class="n">09</span> Buyer Playbook</h3>
+<div class="box fav"><span class="lbl">Agents Are Free To You</span>
+Commission (3&ndash;5%) is paid by the seller or developer. So every recommendation is a sales pitch with a financial motive, not neutral advice. Useful, not disinterested. Treat accordingly.</div>
+<div class="box danger"><span class="lbl">Foreign Ownership: The Quota Question</span>
+Foreigners can own a condo <b>freehold</b> in their own name, but only within the building's <b>49% foreign quota</b>. Units outside the quota sell leasehold or via Thai-company workarounds. Ask, for every unit: "Is this foreign-freehold-quota or not?" Watch how fast they answer. The good ones know instantly; vagueness means they are steering you toward a structure that benefits them.</div>
+<div class="box caution"><span class="lbl">Money Caution</span>
+Do not send any deposit or "reservation fee" before meeting an agent in person and verifying they actually control the unit. Especially for any young agency with no public track record. Confirm phone/email independently for anything sourced from a video or card.</div>
+<h4>Neighborhood economics</h4>
+<p class="kv"><b>Central mall/market zone:</b> condo pricing roughly THB 75,000 to 90,000 per sqm, rising ~10&ndash;12% YoY per local agents. That premium is the walkability you would be paying for.</p>
+<p>If you base centrally and find you happily walk everywhere, target the central condo zone. If you would rather have a car and quiet, target the south. Let the hotel legs answer the ownership question.</p>
+<div class="box proc"><span class="lbl">Get A Lawyer Before You Transact</span>
+For genuinely neutral advice (no stake in which unit you pick), that is a property lawyer on an hourly fee, not an agent. Worth it before any purchase, separate from recon. You are not a lawyer's client for Thai conveyancing; hire local counsel for title and transfer.</div>
+</section>
+<section id="places">
+<h3><span class="n">10</span> Places Logged</h3>
+<div class="tscroll">
+<table>
+  <tr><th>Place</th><th>Type</th><th>Note</th><th>Links</th></tr>
+  <tr><td>Market Village</td><td>Mall (anchor)</td><td>Central. ~400m to Hua Hin Beach. Lotus supermarket, food court, cinema.</td><td><a href="https://marketvillage.homepro.co.th/hua-hin/" target="_blank" rel="noopener">Web</a> &middot; <a href="https://maps.apple.com/?q=Market%20Village%20Hua%20Hin%2C%20Thailand" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>BluPort</td><td>Mall</td><td>~1 km south of Market Village, opposite InterContinental. Newer, big grocery.</td><td><a href="https://www.bluporthuahin.com/" target="_blank" rel="noopener">Web</a> &middot; <a href="https://maps.apple.com/?q=BluPort%20Hua%20Hin%20Resort%20Mall%2C%20Thailand" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Baan Sechuan</td><td>Condo (recon target)</td><td>Beachfront condo, central pocket, opposite Bangkok Hospital. 2BR/99sqm resale ~THB 9.9M (above the 75&ndash;90k/sqm band). Ask the 49% foreign-quota question.</td><td><a href="https://maps.apple.com/?ll=12.5546276,99.961732&q=Baan%20Sechuan%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Jek Pia</td><td>Restaurant</td><td>Old-school seafood, central, cheap. 4.2/3k+. Hot pot, scallops, crab fried rice.</td><td><a href="https://maps.apple.com/?ll=12.5716363,99.9572542&q=Jek%20Pia%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Chaolay Seafood</td><td>Restaurant</td><td>Beachfront seafood hall, central strip. 4.1/3.2k+.</td><td><a href="https://maps.apple.com/?ll=12.5727529,99.959872&q=Chaolay%20Seafood%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Fah Muey</td><td>Restaurant</td><td>Hidden local seafood next to Chaolay, on the water. 4.4/1k+. Steamed sea bass, gaeng som.</td><td><a href="https://maps.apple.com/?ll=12.5730662,99.9600064&q=Fah%20Muey%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Aowtakiab Seafood</td><td>Restaurant</td><td>Huge Khao Takiab beachside seafood hall, south. 4.5/10k+. Grilled prawns, crab.</td><td><a href="https://maps.apple.com/?ll=12.5103142,99.9775074&q=Aowtakiab%20Seafood%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Baan Itsara</td><td>Restaurant</td><td>Beachside seafood, wooden house, north end. 4.4/3.5k+.</td><td><a href="https://maps.apple.com/?ll=12.5823719,99.9556736&q=Baan%20Itsara%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Thi Baan Bistro</td><td>Restaurant</td><td>High-value modern Thai bistro, central. 4.8/300+. Tom yum, garlic chicken rice. Closed Sun.</td><td><a href="https://maps.apple.com/?ll=12.5502324,99.9621834&q=Thi%20Baan%20Bistro%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Koti Restaurant</td><td>Restaurant</td><td>Local Thai-Chinese by the night market. 3.4/1.8k+, mixed reviews.</td><td><a href="https://maps.apple.com/?ll=12.5714884,99.9567674&q=Koti%20Restaurant%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Indian Hut</td><td>Restaurant</td><td>Best Indian in town, central near night market. 4.9/1.1k+. Tikka, naan, masala chai.</td><td><a href="https://maps.apple.com/?ll=12.5707966,99.960033&q=Indian%20Hut%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Pra&ccedil;a</td><td>Restaurant</td><td>Upscale Thai izakaya at The Standard, beachfront. 4.7/480+. Special-dinner pick.</td><td><a href="https://maps.apple.com/?ll=12.5665701,99.9626862&q=Praca%20The%20Standard%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Som's Table</td><td>Restaurant</td><td>Far-south garden fine dining, wine. 4.1/220+. Excellent food but pricey/small portions; polarized.</td><td><a href="https://maps.apple.com/?ll=12.4577338,99.9789421&q=Som's%20Table%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>LaLuz Rooftop</td><td>Bar</td><td>Central rooftop cocktails + small plates, main strip. 4.5 (thin). Closed Mon.</td><td><a href="https://maps.apple.com/?ll=12.5561021,99.961121&q=LaLuz%20Rooftop%20Bar%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>The Sky Hua Hin</td><td>Bar</td><td>27th-floor sky bar, Holiday Inn Vana Nava, south. 4.5/650+. Sunset view; food average.</td><td><a href="https://maps.apple.com/?ll=12.5320365,99.9637639&q=The%20Sky%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Hua Hin Night Market</td><td>Market (food)</td><td>Central street-food market. 4.2/25k+. Grilled seafood, pad thai, satay. ~18:00&ndash;24:00.</td><td><a href="https://maps.apple.com/?ll=12.5711198,99.955467&q=Hua%20Hin%20Night%20Market" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Cicada Market</td><td>Market (food/arts)</td><td>South Nong Kae arts + food night market, Fri&ndash;Sun. 4.3/18k+. Coupons for food stalls.</td><td><a href="https://maps.apple.com/?ll=12.5346594,99.9659588&q=Cicada%20Market%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Trattoria by Andreas</td><td>Restaurant</td><td>Reference Italian, Nong Kae, near Cicada market. 4.4/1.1k+. Homemade pasta, pizza.</td><td><a href="https://maps.apple.com/?ll=12.5337517,99.9658262&q=Trattoria%20by%20Andreas%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Hin Lek Fai Restaurant</td><td>Restaurant</td><td>Hillside Thai + Italian, fair-priced, one-woman kitchen. 4.5/150+. Closed Tue. Reserve.</td><td><a href="https://maps.apple.com/?ll=12.6111536,99.9365802&q=Hin%20Lek%20Fai%20Restaurant%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Hua Hin Vegan Cafe &amp; Wine</td><td>Restaurant</td><td>Fully vegan, Soi 82. 4.5/800+. Creative menu, customizes diets, strong value.</td><td><a href="https://maps.apple.com/?ll=12.5651478,99.959027&q=Hua%20Hin%20Vegan%20Cafe%20and%20Wine" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Eighteen Below Ice Cream</td><td>Dessert</td><td>Home-crafted ice cream + affogato, Soi Naeb Kehardt. 4.0/230+. Closed Tue. Cooling stop.</td><td><a href="https://maps.apple.com/?ll=12.5821711,99.9554329&q=Eighteen%20Below%20Ice%20Cream%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Coco51</td><td>Restaurant</td><td>Beachfront Thai + Italian, live music, Soi 51. 4.3/880+.</td><td><a href="https://maps.apple.com/?ll=12.5795597,99.9567767&q=Coco51%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Air Space</td><td>Restaurant</td><td>Design-led aviation-themed cafe/restaurant, south (Nong Kae). 4.3/2.5k+.</td><td><a href="https://maps.apple.com/?ll=12.5152708,99.9763175&q=Air%20Space%20Hua%20Hin" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>G Hua Hin Resort</td><td>Hotel</td><td>Central recon base. 4.6.</td><td><a href="https://www.ghuahin.com/" target="_blank" rel="noopener">Web</a> &middot; <a href="https://maps.apple.com/?q=G%20Hua%20Hin%20Resort%2C%20Hua%20Hin%2C%20Thailand" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Let's Sea Al Fresco</td><td>Hotel</td><td>Southern adults-oriented recon base. Nong Kae.</td><td><a href="https://www.letussea.com/" target="_blank" rel="noopener">Web</a> &middot; <a href="https://maps.apple.com/?q=Let's%20Sea%20Hua%20Hin%20Al%20Fresco%20Resort%2C%20Nong%20Kae%2C%20Thailand" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Veranda Lodge</td><td>Hotel (ref)</td><td>Town-center beachfront. Not adults-only.</td><td><a href="https://www.verandalodge.com/" target="_blank" rel="noopener">Web</a> &middot; <a href="https://maps.apple.com/?q=Veranda%20Lodge%20Hua%20Hin%2C%20Thailand" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Marrakesh</td><td>Hotel (ref)</td><td>Nong Kae, ~1.6 km south of Market Village. Not adults-only.</td><td><a href="https://marrakeshresortandspa.com/" target="_blank" rel="noopener">Web</a> &middot; <a href="https://maps.apple.com/?q=Marrakesh%20Hua%20Hin%20Resort%20and%20Spa%2C%20Thailand" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Putahracsa</td><td>Hotel</td><td>Adults-only boutique, Naeb Kaehat Rd. ~25-min walk to beach.</td><td><a href="https://www.putahracsa.com/" target="_blank" rel="noopener">Web</a> &middot; <a href="https://maps.apple.com/?q=Putahracsa%20Hua%20Hin%20Resort%2C%20Thailand" target="_blank" rel="noopener">Map</a></td></tr>
+  <tr><td>Aleenta (Pranburi)</td><td>Hotel</td><td>Adults-only wing, 30+ min south. Escape, not base.</td><td><a href="https://www.aleenta.com/huahin/" target="_blank" rel="noopener">Web</a> &middot; <a href="https://maps.apple.com/?q=Aleenta%20Resort%20Pranburi%2C%20Thailand" target="_blank" rel="noopener">Map</a></td></tr>
+</table>
+</div>
+</section>
+<section id="contacts">
+<h3><span class="n">11</span> Key Contacts</h3>
+<div class="tscroll">
+<table>
+  <tr><th>What</th><th>Detail</th></tr>
+  <tr><td>PNR</td><td><span class="mono">UFVR6V</span></td></tr>
+  <tr><td>Ticket no.</td><td><span class="mono">235-2524662404</span></td></tr>
+  <tr><td>Stopover voucher</td><td><span class="mono">0008118233</span></td></tr>
+  <tr><td>Grand Yavuz (Istanbul)</td><td>0212 517 1712 &middot; fom@grandyavuzhotel.com</td></tr>
+  <tr><td>G Hua Hin Resort</td><td>+66 32 515 199</td></tr>
+  <tr><td>Let's Sea</td><td>Book direct / aggregator</td></tr>
+  <tr><td>Location Real Estate</td><td>locationrealestate.co.th</td></tr>
+  <tr><td>Executive Homes</td><td>executive-homes-huahin.com</td></tr>
+  <tr><td>168 Billionaire</td><td>Angie +66 83 462 2645 &middot; Toey +66 65 269 4519 &middot; 168billionaire.property@gmail.com</td></tr>
+</table>
+</div>
+</section>
+<section id="cards">
+<h3><span class="n">12</span> Payment &amp; Cards</h3>
+<p>The flight was rebooked inside the 24-hour free-cancellation window and re-charged to the new Turkish Airlines Miles&amp;Smiles Premier Visa Signature card (ending 969). Same fare (USD 1,641.73), same routing, voucher re-issued. The rebook puts the flight spend toward the card's welcome bonus.</p>
+<div class="box fav"><span class="lbl">Base Miles Already Earned</span>
+The flights themselves credit <b>14,913 Miles&amp;Smiles miles</b> to your account (shown on the ticket), separate from the credit-card rewards below.</div>
+<h4>Welcome bonus tracker</h4>
+<div class="tscroll">
+<table>
+  <tr><th>Tier</th><th>Spend</th><th>Window</th><th>Reward</th><th>Status</th></tr>
+  <tr><td>1</td><td>$2,000 eligible</td><td>First 90 days</td><td>25,000 miles</td><td>Flight ($1,641.73) covers ~82%. About <b>$358 more</b> finishes it. Trip dining/lodging clears this in the first days.</td></tr>
+  <tr><td>2</td><td>+$6,000 (=$8,000 total)</td><td>First 12 months</td><td>+15,000 miles</td><td>At $1,641.73 of $8,000. About <b>$6,358</b> to go over the year. Needs routine spend on the card too.</td></tr>
+</table>
+</div>
+<div class="box caution"><span class="lbl">Confidence</span>Tier 1: high (effectively in hand). Tier 2 / full 40,000: moderate, depends on whether routine annual spend goes on this card.</div>
+<h4>Earn rates to exploit</h4>
+<ul class="tl">
+  <li><span class="d">3X</span><div class="t">Turkish Airlines purchases booked through Turkish-owned channels (app/site/call center). Use this if you add seat selection or extra bags. Narrow: third-party Turkish bookings do not earn 3X.</div></li>
+  <li><span class="d">2X</span><div class="t">Dining, lodging, groceries, entertainment. This is most of the trip: Hua Hin + Bangkok hotels and two weeks of restaurants all earn 2X.</div></li>
+  <li><span class="d">1X</span><div class="t">Everything else.</div></li>
+</ul>
+<h4>Perks for this trip</h4>
+<div class="box proc"><span class="lbl">Use Abroad</span>
+<b>No foreign transaction fees.</b> Use this card for every purchase in Turkey and Thailand. Saves ~3% vs a typical card on all foreign spend. This is the single most valuable day-to-day benefit on the trip.</div>
+<div class="box proc"><span class="lbl">Istanbul Lounge</span>
+Turkish lounge access applies on travel days. Relevant Sep 6 (arrival), Sep 8 (IST departure to BKK), and Sep 20 (IST connection home). Confirm exact terms in the cardholder agreement (same-day Turkish travel, number of visits). Confidence: moderate. Worth using given the long Istanbul stopover.</div>
+<p class="kv"><b>Status miles accelerator:</b> 125 status miles per $500 spent, up to 5,000/year. Trip spend feeds this passively.</p>
+<div class="box danger"><span class="lbl">Watch Items</span>
+<b>$99 annual fee.</b> Set a reminder ~11 months out to decide whether you fly Turkish enough next year to keep it; if not, downgrade or cancel before the second fee.<br>
+<b>Bonus miles post 8&ndash;12 weeks</b> after each threshold, so they fund a future Turkish redemption, not this trip.<br>
+<b>Two voucher PDFs exist.</b> Present only the new one (<span class="mono">0008118233</span> / PNR <span class="mono">UFVR6V</span>) at the hotel. The old voucher (0008118090 / TVSIJM) is dead; discard it.</div>
+</section>
+<section id="checklist">
+<h3><span class="n">13</span> Pre-Flight Checklist</h3>
+<div class="box proc"><span class="lbl">Before You Fly</span>
+<ul>
+<li>Confirm ticket number starts with <b>235</b> (it does: 235-2524662404). Required for stopover validity.</li>
+<li>Stopover voucher already issued (0008118233, PNR UFVR6V). Print it and save offline on the phone. Discard the old voucher.</li>
+<li>Do <b>not</b> book Touristanbul (cancels the hotel benefit).</li>
+<li>Thai entry: confirm passport validity (6+ months past entry) and current visa-exempt / entry rules for US citizens close to travel.</li>
+<li>Pre-book BKK &rarr; Hua Hin <b>direct private car</b> for Sep 9 arrival (driver meeting you at BKK arrivals). ~3&ndash;3.5 hrs.</li>
+<li>Message 2&ndash;3 agents before flying to line up weekday viewings (not Sep 11).</li>
+<li>Arrange Thai eSIM so you land connected.</li>
+<li>Set the Turkish Visa as your travel card (no FX fees); run hotels/dining on it for 2X.</li>
+</ul></div>
+<div class="box danger"><span class="lbl">Two Open Items To Verify</span>
+1) Re-confirm visa-exempt entry terms for US passport holders near departure (rules shift). Confidence: unknown without a fresh check.<br>
+2) Hua Hin hotel legs (G Hua Hin, Let's Sea) are <b>not yet booked</b>. Lock dates once you finalize the central-vs-south night split.</div>
+</section>
+</div>
+<div class="footer">
+  <b>Thailand Recon &amp; Istanbul Stopover</b> &middot; Version 2.4 &middot; June 21, 2026<br>
+  Built for Mark Hanusz. Flights ticketed (PNR UFVR6V, rebooked on Turkish Visa); Istanbul voucher issued (0008118233). Hua Hin hotel legs pending. Verify Thai entry rules and agent reviews independently before relying on them.
+</div>
+</div>
+</div>
+<button class="backtop" id="backtop" aria-label="Back to top">&uarr;</button>
+<div class="hud" id="hud"><span id="hudn">0/0</span><button id="hudp">&uarr;</button><button id="hudx">&times;</button><button id="hudd">&darr;</button></div>
+<script>
+(function(){
+  "use strict";
+  var nav = document.getElementById('nav');
+  try {
+    document.addEventListener('click', function(ev){
+      var a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+      if(!a) return;
+      var href = a.getAttribute('href') || '';
+      if(href.charAt(0) === '#') return;
+      if(/^(https?:)?\/\//.test(href) || /^(mailto:|tel:)/.test(href)){
+        ev.preventDefault();
+        ev.stopPropagation();
+        if(/^(mailto:|tel:)/.test(href)){ window.location.href = href; }
+        else { window.open(href, '_blank', 'noopener'); }
+      }
+    }, true);
+  } catch(e){ console.error("external link fix failed:", e); }
+  try {
+    var ham = document.getElementById('hamBtn');
+    var bd = document.getElementById('navbd');
+    var nc = document.getElementById('navClose');
+    function closeNav(){ document.body.classList.remove('navopen'); }
+    if(ham){ ham.addEventListener('click', function(){ document.body.classList.toggle('navopen'); }); }
+    if(bd){ bd.addEventListener('click', closeNav); }
+    if(nc){ nc.addEventListener('click', closeNav); }
+  } catch(e){ console.error("drawer init failed:", e); }
+  try {
+    var chipbar = document.getElementById('chipbar');
+    if(chipbar){
+      chipbar.querySelectorAll('a[href^="#"]').forEach(function(a){
+        a.addEventListener('click', function(ev){
+          var id = a.getAttribute('href').slice(1);
+          var el = document.getElementById(id);
+          if(el){
+            ev.preventDefault();
+            el.scrollIntoView({behavior:'smooth', block:'start'});
+          }
+        });
+      });
+    }
+  } catch(e){ console.error("chipbar init failed:", e); }
+  try {
+    document.querySelectorAll('.nav a[href^="#"]').forEach(function(a){
+      a.addEventListener('click', function(ev){
+        var id = a.getAttribute('href').slice(1);
+        var el = document.getElementById(id);
+        if(el){
+          ev.preventDefault();
+          ev.stopPropagation();
+          document.body.classList.remove('navopen');
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
+    });
+  } catch(e){ console.error("anchor handler failed:", e); }
+  try {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.nav a[href^="#"]'));
+    var secs = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+    var chipbarEl = document.getElementById('chipbar');
+    var chipMap = {};
+    if(chipbarEl){
+      chipbarEl.querySelectorAll('a[href^="#"]').forEach(function(c){ chipMap[c.getAttribute('href').slice(1)] = c; });
+    }
+    var ticking = false;
+    function onScroll(){
+      if(ticking) return; ticking = true;
+      window.requestAnimationFrame(function(){
+        var line = window.innerHeight * 0.3;
+        var idx = 0;
+        for(var i=0;i<secs.length;i++){
+          if(secs[i] && secs[i].getBoundingClientRect().top <= line){ idx = i; }
+        }
+        links.forEach(function(l){ l.classList.remove('active'); });
+        if(links[idx]){
+          links[idx].classList.add('active');
+          var lt = links[idx].offsetTop, nh = nav.clientHeight, st = nav.scrollTop;
+          if(lt < st + 60 || lt > st + nh - 60){ nav.scrollTop = lt - nh/2; }
+          var curId = links[idx].getAttribute('href').slice(1);
+          if(chipbarEl){
+            chipbarEl.querySelectorAll('a').forEach(function(c){ c.classList.remove('active'); });
+            var ac = chipMap[curId];
+            if(ac){
+              ac.classList.add('active');
+              var cl = ac.offsetLeft, cw = ac.offsetWidth, bw = chipbarEl.clientWidth, bs = chipbarEl.scrollLeft;
+              if(cl < bs + 12 || cl + cw > bs + bw - 12){ chipbarEl.scrollLeft = cl - bw/2 + cw/2; }
+            }
+          }
+        }
+        var bt = document.getElementById('backtop');
+        if(bt){ if(window.scrollY > 600){ bt.classList.add('show'); } else { bt.classList.remove('show'); } }
+        ticking = false;
+      });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  } catch(e){ console.error("active tracking failed:", e); }
+  try {
+    var bt = document.getElementById('backtop');
+    if(bt){ bt.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); }); }
+  } catch(e){ console.error("backtop failed:", e); }
+  try {
+    var q = document.getElementById('q');
+    var hud = document.getElementById('hud');
+    var hudn = document.getElementById('hudn');
+    var main = document.querySelector('.main');
+    var hits = [], cur = -1;
+    function clearMarks(){
+      var marks = main.querySelectorAll('mark.sx');
+      marks.forEach(function(m){
+        var t = document.createTextNode(m.textContent);
+        m.parentNode.replaceChild(t, m);
+      });
+      main.normalize();
+      hits = []; cur = -1;
+    }
+    function doSearch(term){
+      clearMarks();
+      if(!term || term.length < 2){ hud.classList.remove('show'); return; }
+      var rx = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
+      var walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, {
+        acceptNode:function(n){
+          if(!n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          var p = n.parentNode;
+          while(p){ if(p.tagName==='SCRIPT'||p.tagName==='STYLE'||p.tagName==='MARK') return NodeFilter.FILTER_REJECT; p = p.parentNode; }
+          return rx.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }
+      });
+      var nodes = [], n;
+      while((n = walker.nextNode())){ nodes.push(n); }
+      nodes.forEach(function(node){
+        var frag = document.createDocumentFragment();
+        var last = 0, s = node.nodeValue, m2;
+        rx.lastIndex = 0;
+        while((m2 = rx.exec(s))){
+          if(m2.index > last){ frag.appendChild(document.createTextNode(s.slice(last, m2.index))); }
+          var mk = document.createElement('mark'); mk.className='sx'; mk.textContent = m2[0];
+          frag.appendChild(mk); hits.push(mk);
+          last = m2.index + m2[0].length;
+          if(m2[0].length===0){ rx.lastIndex++; }
+        }
+        if(last < s.length){ frag.appendChild(document.createTextNode(s.slice(last))); }
+        node.parentNode.replaceChild(frag, node);
+      });
+      if(hits.length){ hud.classList.add('show'); cur = -1; nextHit(1); }
+      else { hud.classList.remove('show'); }
+    }
+    function nextHit(dir){
+      if(!hits.length) return;
+      if(cur>=0 && hits[cur]) hits[cur].classList.remove('cur');
+      cur = (cur + dir + hits.length) % hits.length;
+      hits[cur].classList.add('cur');
+      hits[cur].scrollIntoView({behavior:'smooth', block:'center'});
+      hudn.textContent = (cur+1)+'/'+hits.length;
+    }
+    if(q){
+      var deb;
+      q.addEventListener('input', function(){ clearTimeout(deb); deb = setTimeout(function(){ doSearch(q.value.trim()); }, 200); });
+    }
+    var hp=document.getElementById('hudp'), hd=document.getElementById('hudd'), hx=document.getElementById('hudx');
+    if(hp) hp.addEventListener('click', function(){ nextHit(-1); });
+    if(hd) hd.addEventListener('click', function(){ nextHit(1); });
+    if(hx) hx.addEventListener('click', function(){ if(q) q.value=''; clearMarks(); hud.classList.remove('show'); });
+  } catch(e){ console.error("search init failed:", e); }
+})();
+</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+(function(){
+  "use strict";
+  var IST = [["Grand Yavuz (hotel)", 41.0057, 28.9772, "https://www.grandyavuzhotel.com/", "Your 2-night base"], ["Turgut Kebab", 41.004723, 28.979098, "https://www.turgutkebap.com/", "Breakfast / 24h"], ["Ziya Baba", 41.0036929, 28.9719096, "", "Value anchor"], ["Old Sultanahmet Cuisine", 41.0048466, 28.9707646, "https://instagram.com/oldsultanahmetrestaurant", "Off the tourist drag"], ["Selim Usta Koftecisi", 41.0080082, 28.9769068, "https://sultanahmetkoftesi.com/en/", "Iconic kofte, quick lunch"], ["Dubb Ethnic", 41.004341, 28.979997, "https://www.dubbethnic.com/en/", "Mid-range dinner"], ["Sultan Palace Cafe", 41.0085053, 28.9750403, "http://www.sultanpalace.tr/", "Mid-range dinner"], ["Deraliye Terrace", 41.0088488, 28.9761647, "https://deraliyeterrace.com/", "Ottoman cuisine, view"], ["Queb Rooftop", 41.0055509, 28.9803879, "https://queblounge.com/", "Rooftop splurge"], ["Giritli", 41.0044, 28.9826, "https://www.giritlirestaurant.com/", "Michelin Bib Gourmand. Cretan-Aegean set-menu mezze feast in a 19th-c mansion. $$$. Reserve 48h."], ["Pandeli", 41.0166, 28.9706, "https://www.pandeli.com.tr/", "Michelin Bib Gourmand. Historic tiled spot inside the Spice Bazaar. Lunch only, closed Sun. $$."], ["Hafiz Mustafa 1864", 41.0080549, 28.9766287, "https://www.hafizmustafa.com/en", "Dessert / baklava"]];
+  var SIGHTS = [["Hagia Sophia", 41.008583, 28.980175, "Day 2 open at 08:30. Queues build fast."], ["Blue Mosque", 41.0054096, 28.9768138, "Day 1 exterior; Day 2 interior (mind prayer times)."], ["Basilica Cistern", 41.008384, 28.977878, "Day 2. Underground columns + Medusa heads."], ["Topkapi Palace", 41.0115195, 28.9833789, "Day 2. Allow 2-3 hrs. Closed Tuesdays."], ["Grand Bazaar", 41.0106848, 28.9680681, "Day 2 afternoon. Closed Sundays, so Mon works."], ["Sultanahmet Square / Hippodrome", 41.0063286, 28.9757051, "Day 1 easy orientation walk."], ["Spice Bazaar", 41.0165001, 28.9705194, "Day 2 optional, if energy holds."]];
+  var DAY1 = [[41.0057, 28.9772], [41.0063286, 28.9757051], [41.0054096, 28.9768138], [41.0085053, 28.9750403], [41.0057, 28.9772]];
+  var DAY2 = [[41.0057, 28.9772], [41.008583, 28.980175], [41.008384, 28.977878], [41.0115195, 28.9833789], [41.0080082, 28.9769068], [41.0106848, 28.9680681], [41.0165001, 28.9705194]];
+  var HH = [["G Hua Hin Resort", 12.5551206, 99.9605219, "https://www.ghuahin.com/", "Central base (birthday leg)"], ["Let's Sea Al Fresco", 12.5307422, 99.9691315, "https://www.letussea.com/", "Southern base (quiet test)"], ["Putahracsa", 12.5769589, 99.9559902, "https://www.putahracsa.com/", "Adults-only boutique"], ["Aleenta (Pranburi)", 12.3548458, 99.9974702, "https://www.aleenta.com/huahin/", "Far-south escape"], ["Veranda Lodge", 12.560074, 99.962722, "https://www.verandalodge.com/", "Reference (not adults-only)"], ["Marrakesh", 12.5441667, 99.9644444, "https://marrakeshresortandspa.com/", "Reference (not adults-only)"], ["Kiang Haad Beach", 12.5566334, 99.9616069, "https://www.kianghaadbeach.com/", "Across from mall"], ["Baan Bayan", 12.5594146, 99.9609364, "https://www.baanbayan.com/", "Beachfront boutique"], ["Market Village", 12.5577463, 99.960394, "https://marketvillage.homepro.co.th/hua-hin/", "Anchor mall"], ["BluPort", 12.5476867, 99.9621772, "https://www.bluporthuahin.com/", "Newer mall, ~1km south"], ["Baan Sechuan", 12.5546276, 99.961732, "", "CONDO recon target: beachfront, ~THB 9.9M for 2BR/99sqm. Ask the 49% foreign-quota question."], ["Jek Pia", 12.5716363, 99.9572542, "", "Seafood, old-school, cheap. 4.2/3k+. Hot pot, scallops, crab fried rice."], ["Chaolay Seafood", 12.5727529, 99.959872, "", "Beachfront seafood hall, central. 4.1/3.2k+."], ["Fah Muey", 12.5730662, 99.9600064, "", "Hidden local seafood next to Chaolay, on the water. 4.4/1k+."], ["Baan Itsara", 12.5823719, 99.9556736, "", "Beachside seafood, wooden house, north end. 4.4/3.5k+."], ["Aowtakiab Seafood", 12.5103142, 99.9775074, "", "Huge Khao Takiab beachside seafood hall, south. 4.5/10k+."], ["Thi Baan Bistro", 12.5502324, 99.9621834, "", "High-value modern Thai bistro, central. 4.8/300+. Closed Sun."], ["Koti Restaurant", 12.5714884, 99.9567674, "", "Local Thai-Chinese by the market. 3.4/1.8k+, mixed."], ["Indian Hut", 12.5707966, 99.960033, "", "Best Indian in town, central. 4.9/1.1k+. Tikka, naan, masala chai."], ["Praca (The Standard)", 12.5665701, 99.9626862, "", "Upscale Thai izakaya, beachfront. 4.7/480+. Special-dinner pick."], ["Som's Table", 12.4577338, 99.9789421, "", "Far-south garden fine dining, wine. 4.1/220+. Pricey, polarized."], ["LaLuz Rooftop", 12.5561021, 99.961121, "", "Central rooftop cocktails + small plates. 4.5 (thin). Closed Mon."], ["The Sky Hua Hin", 12.5320365, 99.9637639, "", "27th-floor sky bar, south. 4.5/650+. Sunset view; food average."], ["Hua Hin Night Market", 12.5711198, 99.955467, "", "Central street-food market. 4.2/25k+. ~18:00-24:00."], ["Cicada Market", 12.5346594, 99.9659588, "", "South arts + food night market, Fri-Sun. 4.3/18k+."], ["Trattoria by Andreas", 12.5337517, 99.9658262, "", "Reference Italian, Nong Kae. 4.4/1.1k+. Homemade pasta, pizza."], ["Hin Lek Fai Restaurant", 12.6111536, 99.9365802, "", "Hillside Thai + Italian, fair-priced. 4.5/150+. Closed Tue."], ["Hua Hin Vegan Cafe", 12.5651478, 99.959027, "", "Fully vegan, Soi 82. 4.5/800+. Strong value."], ["Eighteen Below Ice Cream", 12.5821711, 99.9554329, "", "Home-crafted ice cream + affogato. 4.0/230+. Closed Tue."], ["Coco51", 12.5795597, 99.9567767, "", "Beachfront Thai + Italian, live music. 4.3/880+."], ["Air Space", 12.5152708, 99.9763175, "", "Design-led aviation-themed cafe/restaurant, south. 4.3/2.5k+."]];
+  function redIcon(){
+    return L.divIcon({className:'redpin',
+      html:'<svg width="26" height="38" viewBox="0 0 26 38" xmlns="http://www.w3.org/2000/svg"><path d="M13 0C5.8 0 0 5.8 0 13c0 9.2 13 25 13 25s13-15.8 13-25C26 5.8 20.2 0 13 0z" fill="#c0271a"/><circle cx="13" cy="13" r="5" fill="#fff"/></svg>',
+      iconSize:[26,38], iconAnchor:[13,38], popupAnchor:[0,-34]});
+  }
+  function blueIcon(){
+    return L.divIcon({className:'redpin',
+      html:'<svg width="24" height="35" viewBox="0 0 26 38" xmlns="http://www.w3.org/2000/svg"><path d="M13 0C5.8 0 0 5.8 0 13c0 9.2 13 25 13 25s13-15.8 13-25C26 5.8 20.2 0 13 0z" fill="#27537f"/><circle cx="13" cy="13" r="5" fill="#fff"/></svg>',
+      iconSize:[24,35], iconAnchor:[12,35], popupAnchor:[0,-32]});
+  }
+  function popup(p){
+    var name = p[0], note = p[4]||'', url = p[3]||'';
+    var html = '<b>'+name+'</b>';
+    if(note){ html += '<span class="pm">'+note+'</span>'; }
+    if(url){ html += '<span class="pm"><a href="'+url+'" target="_blank" rel="noopener">Website &rarr;</a></span>'; }
+    return html;
+  }
+  function build(id, pins){
+    var el = document.getElementById(id);
+    if(!el || !window.L) return null;
+    var map = L.map(id, {scrollWheelZoom:false, zoomControl:true});
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom:19, attribution:'&copy; OpenStreetMap contributors'
+    }).addTo(map);
+    var grp = [];
+    pins.forEach(function(p){
+      var m = L.marker([p[1],p[2]], {icon:redIcon()}).addTo(map);
+      m.bindPopup(popup(p));
+      grp.push(m);
+    });
+    // Istanbul: add sight markers (blue) + two-day walking routes
+    if(id === 'map-ist'){
+      SIGHTS.forEach(function(s){
+        var sm = L.marker([s[1],s[2]], {icon:blueIcon()}).addTo(map);
+        sm.bindPopup('<b>'+s[0]+'</b><span class="pm">'+(s[3]||'')+'</span>');
+        grp.push(sm);
+      });
+      var d2 = L.polyline(DAY2, {color:'#1f6f8b', weight:4, opacity:0.85, dashArray:'1,0'}).addTo(map);
+      var d1 = L.polyline(DAY1, {color:'#c9a24b', weight:5, opacity:0.9}).addTo(map);
+      grp.push(d1); grp.push(d2);
+    }
+    if(grp.length){
+      var fg = L.featureGroup(grp);
+      map.fitBounds(fg.getBounds().pad(0.18));
+    }
+    map.on('focus', function(){ map.scrollWheelZoom.enable(); });
+    map.on('blur', function(){ map.scrollWheelZoom.disable(); });
+    setTimeout(function(){ map.invalidateSize(); }, 200);
+    return map;
+  }
+  function init(){
+    try { build('map-ist', IST); } catch(e){ console.error('ist map failed:', e); }
+    try { build('map-hh', HH); } catch(e){ console.error('hh map failed:', e); }
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
+})();
+</script>
+</body>
+</html>
